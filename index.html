@@ -12,6 +12,7 @@
             --bg-color: #ecf0f1;
             --text-color: #333;
             --card-bg: #fff;
+            --case-bg: #fdfbf7; /* Cor de fundo estilo 'prancheta' */
         }
 
         body {
@@ -19,11 +20,31 @@
             background-color: var(--bg-color);
             color: var(--text-color);
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
             min-height: 100vh;
             margin: 0;
             padding: 20px;
+        }
+
+        .header-controls {
+            width: 100%;
+            max-width: 800px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        select {
+            padding: 10px;
+            font-size: 1em;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            background-color: white;
+            color: var(--primary-color);
+            font-weight: bold;
+            cursor: pointer;
         }
 
         .container {
@@ -33,23 +54,25 @@
             width: 100%;
             max-width: 800px;
             padding: 30px;
-            overflow: hidden;
+            box-sizing: border-box;
+            margin-bottom: 20px;
         }
 
-        h1, h2, h3 {
-            color: var(--primary-color);
-            margin-top: 0;
+        /* Novo estilo para o Painel Fixo do Paciente */
+        .painel-paciente {
+            background-color: var(--case-bg);
+            border: 2px solid #e0dcd3;
+            border-left: 5px solid var(--primary-color);
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
         }
 
-        .step {
-            display: none;
-            animation: fadeIn 0.5s ease-in-out;
-        }
-
-        .step.active {
-            display: block;
-        }
-
+        h1, h2, h3 { color: var(--primary-color); margin-top: 0; }
+        
+        .step { display: none; animation: fadeIn 0.4s ease-in-out; }
+        .step.active { display: block; }
+        
         .case-text {
             background-color: #f9f9f9;
             border-left: 4px solid var(--action-color);
@@ -59,88 +82,43 @@
             line-height: 1.6;
         }
 
-        .form-group {
-            margin-bottom: 15px;
-        }
-
-        label {
-            font-weight: bold;
-            display: block;
-            margin-bottom: 8px;
-            color: var(--primary-color);
-        }
-
+        .form-group { margin-bottom: 15px; }
+        label { font-weight: bold; display: block; margin-bottom: 8px; color: var(--primary-color); }
+        
         textarea, input[type="text"] {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            font-family: inherit;
-            font-size: 1em;
-            box-sizing: border-box;
+            width: 100%; padding: 12px; border: 1px solid #ccc;
+            border-radius: 5px; font-family: inherit; font-size: 1em; box-sizing: border-box;
+            line-height: 1.5;
         }
+        textarea { resize: vertical; min-height: 100px; }
 
-        textarea {
-            resize: vertical;
-            min-height: 80px;
-        }
+        /* Textarea maior para a solicitação de patologia */
+        #solicitacao_unica { min-height: 150px; }
 
         .btn-verificar {
-            background-color: var(--action-color);
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            font-size: 1em;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-            margin-top: 10px;
+            background-color: var(--action-color); color: white; border: none;
+            padding: 10px 20px; font-size: 1em; border-radius: 5px; cursor: pointer;
+            transition: background-color 0.3s; margin-top: 10px;
         }
-
-        .btn-verificar:hover {
-            background-color: #1c5980;
-        }
+        .btn-verificar:hover { background-color: #1c5980; }
 
         .btn-avancar {
-            background-color: var(--secondary-color);
-            color: white;
-            border: none;
-            padding: 12px 25px;
-            font-size: 1.1em;
-            border-radius: 5px;
-            cursor: pointer;
-            float: right;
-            transition: background-color 0.3s;
-            display: none; /* Escondido até verificar a resposta */
-            margin-top: 20px;
+            background-color: var(--secondary-color); color: white; border: none;
+            padding: 12px 25px; font-size: 1.1em; border-radius: 5px; cursor: pointer;
+            float: right; transition: background-color 0.3s; display: none; margin-top: 20px;
         }
+        .btn-avancar:hover { background-color: #219653; }
 
-        .btn-avancar:hover {
-            background-color: #219653;
-        }
-
-        /* Caixa de feedback com o gabarito */
         .gabarito-box {
-            display: none;
-            margin-top: 20px;
-            padding: 15px;
-            background-color: #e8f8f5;
-            border-left: 4px solid var(--secondary-color);
-            border-radius: 4px;
+            display: none; margin-top: 20px; padding: 15px; background-color: #e8f8f5;
+            border-left: 4px solid var(--secondary-color); border-radius: 4px;
+            line-height: 1.6;
         }
+        .gabarito-box h4 { color: var(--secondary-color); margin-top: 0; margin-bottom: 10px; }
 
-        .gabarito-box h4 {
-            color: var(--secondary-color);
-            margin-top: 0;
-            margin-bottom: 10px;
-        }
-
-        .solicitacao-form {
-            background-color: #fcfcfc;
-            border: 1px solid #ddd;
-            padding: 20px;
-            border-radius: 8px;
-        }
+        /* Classes utilitárias */
+        .dinamico { display: none; }
+        .dinamico.visivel { display: block; }
 
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(10px); }
@@ -150,142 +128,133 @@
 </head>
 <body>
 
+<div class="header-controls">
+    <h2 style="margin: 0;">Simulador de Casos Clínicos</h2>
+    <select id="seletorCaso" onchange="carregarCaso(this.value)">
+        </select>
+</div>
+
 <div class="container">
     
-    <!-- ETAPA 1 -->
+    <div class="painel-paciente" id="painel_paciente">
+        <h3>📄 Prontuário do Paciente</h3>
+        <strong>Identificação:</strong> <span id="txt_paciente"></span><br><br>
+        <strong>História da Moléstia:</strong> <span id="txt_historia"></span><br><br>
+        <strong>Antecedentes:</strong> <span id="txt_antecedentes"></span><br><br>
+        <strong>Exame Físico:</strong> <span id="txt_exame_fisico"></span>
+    </div>
+
     <div id="step1" class="step active">
-        <h2>Etapa 1: Anamnese e Exame Físico</h2>
-        <div class="case-text">
-            <strong>Paciente:</strong> MTR, masculino, 62 anos, pedreiro aposentado.<br><br>
-            <strong>História:</strong> Chega ao ambulatório com queixa de "entalo crônico e dor no peito". Relata dificuldade progressiva para engolir (disfagia) há cinco meses. Inicialmente engasgava com sólidos, mas agora o entalo ocorre até com líquidos, associado à dor retroesternal. Perda de peso estimada em 15 kg no semestre.<br><br>
-            <strong>Antecedentes:</strong> Tabagismo e alcoolismo diários desde os 16 anos.<br>
-            <strong>Exame Físico:</strong> Caquético, hipocorado (2+/4+), anictérico e afebril.
-        </div>
+        <h2 id="titulo_etapa1">Etapa 1: Hipótese Diagnóstica</h2>
         
         <div class="form-group">
-            <label>1. Qual a sua principal hipótese diagnóstica estruturada?</label>
-            <textarea id="resposta_1"></textarea>
+            <label id="lbl_pergunta1"></label>
+            <textarea id="resposta_1" placeholder="Sua resposta estruturada..."></textarea>
         </div>
         
         <button class="btn-verificar" onclick="verificar(1)">Verificar Resposta</button>
         
         <div id="gabarito1" class="gabarito-box">
             <h4>Padrão Ouro (Gabarito):</h4>
-            <p><strong>Carcinoma de Células Escamosas do Esôfago.</strong></p>
-            <p><strong>Justificativa:</strong> O paciente apresenta todos os fatores de risco epidemiológicos clássicos (homem, acima de 50 anos, tabagismo e alcoolismo) alinhados à apresentação clínica típica de disfagia progressiva, dor retroesternal e perda de peso acentuada[cite: 7].</p>
+            <p><strong id="gab_titulo1"></strong></p>
+            <p><strong style="color:#333">Justificativa:</strong> <span id="gab_justificativa1"></span></p>
         </div>
         
         <button id="btn_next1" class="btn-avancar" onclick="nextStep(1)">Avançar Etapa</button>
     </div>
 
-    <!-- ETAPA 2 -->
     <div id="step2" class="step">
-        <h2>Etapa 2: Investigação Complementar</h2>
-        <div class="case-text">
-            Sua hipótese clínica de doença estrutural esofágica obstrutiva foi estabelecida. 
-        </div>
+        <h2 id="titulo_etapa2">Etapa 2: Investigação Complementar</h2>
+        <div class="case-text" id="txt_contexto2"></div>
         
         <div class="form-group">
-            <label>2. Quais exames complementares você solicita para confirmar a suspeita?</label>
-            <textarea id="resposta_2"></textarea>
+            <label id="lbl_pergunta2"></label>
+            <textarea id="resposta_2" placeholder="Descreva os exames..."></textarea>
         </div>
 
         <button class="btn-verificar" onclick="verificar(2)">Verificar Resposta</button>
 
         <div id="gabarito2" class="gabarito-box">
             <h4>Padrão Ouro (Gabarito):</h4>
-            <p><strong>Endoscopia Digestiva Alta (EDA) com biópsia.</strong></p>
-            <p><strong>Justificativa:</strong> É o padrão-ouro para visualizar o estreitamento luminal e a lesão exofítica[cite: 7], além de permitir a coleta de tecido para análise anatomopatológica.</p>
+            <p><strong id="gab_titulo2"></strong></p>
+            <p><strong style="color:#333">Justificativa:</strong> <span id="gab_justificativa2"></span></p>
         </div>
 
         <button id="btn_next2" class="btn-avancar" onclick="nextStep(2)">Avançar Etapa</button>
     </div>
 
-    <!-- ETAPA 3 -->
     <div id="step3" class="step">
-        <h2>Etapa 3: Solicitação Histopatológica</h2>
+        <h2 id="titulo_etapa3">Etapa 3: Conduta Especializada</h2>
+        
         <div class="case-text">
-            <strong>Laudo da Endoscopia:</strong> Presença de volumosa lesão exofítica no terço médio do esôfago, friável e com ulcerações. Causa grave estreitamento luminal, impedindo a progressão do aparelho[cite: 7]. Foram coletadas amostras da lesão.
+            <strong>Laudo do Exame:</strong> <span id="txt_laudo_exame"></span>
         </div>
         
-        <h3>Preencha a Solicitação de Exame Anatomopatológico:</h3>
-        <div class="solicitacao-form">
+        <div id="bloco_patologia" class="dinamico">
+            <h3>Redija a Solicitação de Exame Anatomopatológico:</h3>
+            <p style="color: #666; font-size: 0.9em; margin-top: -10px;">Dica: Um formulário completo deve conter os dados de identificação, o material coletado e os informes clínicos relevantes.</p>
             <div class="form-group">
-                <label>Identificação do Paciente:</label>
-                <input type="text" id="sol_nome">
-            </div>
-            <div class="form-group">
-                <label>Material / Procedimento:</label>
-                <input type="text" id="sol_material">
-            </div>
-            <div class="form-group">
-                <label>Informes Clínicos (Anamnese e Endoscopia):</label>
-                <textarea id="sol_clinica"></textarea>
+                <textarea id="solicitacao_unica" placeholder="Escreva aqui a sua solicitação completa..."></textarea>
             </div>
         </div>
 
-        <button class="btn-verificar" onclick="verificar(3)">Verificar Solicitação</button>
+        <div id="bloco_funcional" class="dinamico">
+            <div class="form-group">
+                <label id="lbl_pergunta3_alternativa"></label>
+                <textarea id="resposta_3_alternativa" placeholder="Sua análise estruturada..."></textarea>
+            </div>
+        </div>
+
+        <button class="btn-verificar" onclick="verificar(3)">Verificar Etapa</button>
 
         <div id="gabarito3" class="gabarito-box">
-            <h4>Padrão Ouro (Gabarito da Solicitação):</h4>
-            <p><strong>Identificação:</strong> MTR, 62 anos, Sexo Masculino.</p>
-            <p><strong>Material / Procedimento:</strong> Fragmentos de lesão esofágica (terço médio) / Biópsia Endoscópica.</p>
-            <p><strong>Informes Clínicos:</strong> Paciente idoso com longo histórico de tabagismo e alcoolismo, apresentando perda de peso e disfagia progressiva[cite: 7]. A Endoscopia Digestiva Alta revelou lesão exofítica ulcerada e estreitamento luminal[cite: 7]. Suspeita de Carcinoma de Células Escamosas.</p>
+            <h4>Padrão Ouro (Gabarito):</h4>
+            
+            <div id="gab_patologia" class="dinamico">
+                <p><strong>Exemplo de Solicitação Ideal:</strong><br> <br><span id="gab_solicitacao" style="white-space: pre-wrap;"></span></p>
+            </div>
+            
+            <div id="gab_funcional" class="dinamico">
+                <p><strong id="gab_titulo3"></strong></p>
+                <p><strong style="color:#333">Justificativa:</strong> <span id="gab_justificativa3"></span></p>
+            </div>
         </div>
 
         <button id="btn_next3" class="btn-avancar" onclick="nextStep(3)">Avançar Etapa</button>
     </div>
 
-    <!-- ETAPA 4 -->
     <div id="step4" class="step">
-        <h2>Etapa 4: Laudo Patológico e Diagnóstico Final</h2>
+        <h2 id="titulo_etapa4">Etapa 4: Diagnóstico Final</h2>
+        
         <div class="case-text">
-            <strong>Laudo Anatomopatológico:</strong><br>
-            <strong>Macroscopia:</strong> 5 fragmentos irregulares, pardacentos e firmes. (B1 - 5F - TI).<br>
-            <strong>Microscopia:</strong> Neoplasia epitelial maligna. Proliferação de células escamosas atípicas e mitoses atípicas. Invasão do estroma conjuntivo subjacente[cite: 7].
+            <div id="bloco_laudo_patologico" class="dinamico">
+                <strong>Laudo Anatomopatológico:</strong><br><br>
+                <strong>Macroscopia:</strong> <span id="txt_macroscopia"></span><br><br>
+                <strong>Microscopia:</strong> <span id="txt_microscopia"></span>
+            </div>
+            <div id="bloco_conclusao_clinica" class="dinamico">
+                <strong>Análise Clínica e Funcional concluída com sucesso.</strong>
+            </div>
         </div>
         
         <div class="form-group">
-            <label>4. Com base na integração clínico-patológica, qual o diagnóstico definitivo?</label>
-            <input type="text" id="resposta_4">
+            <label id="lbl_pergunta4"></label>
+            <input type="text" id="resposta_4" placeholder="Diagnóstico definitivo">
         </div>
 
         <button class="btn-verificar" onclick="verificar(4)">Verificar Diagnóstico</button>
 
         <div id="gabarito4" class="gabarito-box">
             <h4>Padrão Ouro (Gabarito):</h4>
-            <p><strong>Carcinoma de Células Escamosas do Esôfago.</strong>[cite: 7]</p>
+            <p><strong id="gab_titulo4"></strong></p>
         </div>
 
-        <button id="btn_next4" class="btn-avancar" onclick="location.reload()" style="background-color: var(--primary-color);">Finalizar e Reiniciar</button>
+        <button id="btn_next4" class="btn-avancar" onclick="reiniciarApp()" style="background-color: var(--primary-color);">Finalizar Caso</button>
     </div>
 
 </div>
 
-<script>
-    function verificar(step) {
-        // Exibe a caixa de gabarito correspondente
-        document.getElementById('gabarito' + step).style.display = 'block';
-        
-        // Exibe o botão de avançar da respectiva etapa
-        document.getElementById('btn_next' + step).style.display = 'block';
-        
-        // Opcional: Desabilitar os campos após verificar para simular o "envio"
-        if(step === 3) {
-            document.getElementById('sol_nome').disabled = true;
-            document.getElementById('sol_material').disabled = true;
-            document.getElementById('sol_clinica').disabled = true;
-        } else {
-            document.getElementById('resposta_' + step).disabled = true;
-        }
-    }
-
-    function nextStep(currentStep) {
-        // Esconde o passo atual e mostra o próximo
-        document.getElementById('step' + currentStep).classList.remove('active');
-        document.getElementById('step' + (currentStep + 1)).classList.add('active');
-    }
-</script>
+<script src="app.js"></script>
 
 </body>
 </html>
