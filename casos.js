@@ -1,4 +1,3 @@
-// Exemplo de como fica o JSON agora
 const casosBD = [
     {
         "id": "scc_esofago",
