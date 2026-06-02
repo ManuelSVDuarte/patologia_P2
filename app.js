@@ -1,0 +1,198 @@
+// ==========================================
+// 1. BANCO DE DADOS DOS CASOS CLÍNICOS
+// ==========================================
+const casosBD = [
+    {
+        id: "scc_esofago",
+        nome_patologia: "Carcinoma de Células Escamosas do Esôfago",
+        tipo_exame: "patologia", // Define que este caso exige formulário de biópsia
+        etapa1: {
+            paciente: "MTR, masculino, 62 anos, pedreiro aposentado.",
+            historia: "Chega ao ambulatório com queixa de 'entalo crônico e dor no peito'. Relata dificuldade progressiva para engolir (disfagia) há cinco meses. Inicialmente engasgava com sólidos, mas agora o entalo ocorre até com líquidos, associado à dor retroesternal. Perda de peso estimada em 15 kg no semestre.",
+            antecedentes: "Tabagismo e alcoolismo diários desde os 16 anos.",
+            exame_fisico: "Caquético, hipocorado (2+/4+), anictérico e afebril.",
+            pergunta: "1. Qual a sua principal hipótese diagnóstica estruturada?",
+            gabarito_titulo: "Carcinoma de Células Escamosas do Esôfago.",
+            gabarito_justificativa: "O paciente apresenta todos os fatores de risco epidemiológicos clássicos (homem, idoso, tabagismo e alcoolismo) alinhados à apresentação clínica típica de disfagia progressiva e perda de peso."
+        },
+        etapa2: {
+            contexto: "Sua hipótese clínica de doença estrutural esofágica obstrutiva foi estabelecida.",
+            pergunta: "2. Quais exames complementares você solicita para confirmar a suspeita?",
+            gabarito_titulo: "Endoscopia Digestiva Alta (EDA) com biópsia.",
+            gabarito_justificativa: "É o padrão-ouro para visualizar o estreitamento luminal e a lesão exofítica, além de permitir a coleta de tecido para análise."
+        },
+        etapa3: {
+            laudo_exame: "Presença de volumosa lesão exofítica no terço médio do esôfago, friável e com ulcerações. Causa grave estreitamento luminal, impedindo a progressão do aparelho.",
+            gabarito_solicitacao: "Identificação: MTR, 62 anos, Sexo Masculino.\n\nMaterial / Procedimento: Fragmentos de lesão esofágica (terço médio) / Biópsia Endoscópica.\n\nInformes Clínicos: Paciente idoso com longo histórico de tabagismo e alcoolismo, apresentando perda de peso e disfagia progressiva. A EDA revelou lesão exofítica ulcerada e estreitamento luminal. Suspeita de Carcinoma de Células Escamosas."
+        },
+        etapa4: {
+            macroscopia: "5 fragmentos irregulares, pardacentos e firmes. (B1 - 5F - TI).",
+            microscopia: "Neoplasia epitelial maligna. Proliferação de células escamosas atípicas e mitoses atípicas. Invasão do estroma conjuntivo subjacente.",
+            pergunta: "4. Com base na integração clínico-patológica, qual o diagnóstico definitivo?",
+            gabarito_titulo: "Carcinoma de Células Escamosas do Esôfago."
+        }
+    },
+    {
+        id: "dpoc_01",
+        nome_patologia: "Doença Pulmonar Obstrutiva Crônica (DPOC)",
+        tipo_exame: "funcional", // Oculta a biópsia e mostra a análise funcional
+        etapa1: {
+            paciente: "RFS, masculino, 62 anos, motorista aposentado.",
+            historia: "Dispneia progressiva limitante e tosse crônica com expectoração matinal há vários anos.",
+            antecedentes: "Tabagismo ativo com alta carga tabágica (44 anos-maço).",
+            exame_fisico: "Uso de musculatura acessória, murmúrio vesicular difusamente reduzido, tempo expiratório prolongado e sibilância esparsa.",
+            pergunta: "1. Qual a principal suspeita clínica e o fator de risco determinante?",
+            gabarito_titulo: "Doença Pulmonar Obstrutiva Crônica (DPOC).",
+            gabarito_justificativa: "Quadro clássico de dispneia e tosse em paciente acima de 40 anos com alta carga tabágica associada."
+        },
+        etapa2: {
+            contexto: "A suspeita de síndrome obstrutiva crônica necessita de comprovação funcional e de imagem.",
+            pergunta: "2. Quais exames você solicita para estadiamento e confirmação diagnóstica?",
+            gabarito_titulo: "Espirometria e Radiografia de Tórax.",
+            gabarito_justificativa: "A espirometria é mandatória para confirmar a obstrução do fluxo aéreo, e a radiografia avalia os sinais de hiperinsuflação."
+        },
+        etapa3: {
+            laudo_exame: "A espirometria confirmou distúrbio ventilatório com obstrução irreversível. A radiografia de tórax evidenciou retificação das cúpulas diafragmáticas e hiperinsuflação.",
+            pergunta_alternativa: "3. Correlacione o achado da espirometria com a fisiopatologia da doença.",
+            gabarito_titulo: "Obstrução fixa e irreversível da via aérea.",
+            gabarito_justificativa: "Diferente da asma, a obstrução irreversível na espirometria reflete o dano estrutural crônico: o remodelamento brônquico e a destruição alveolar (enfisema)."
+        },
+        etapa4: {
+            pergunta: "4. Com base na clínica e na prova de função pulmonar, qual o diagnóstico final?",
+            gabarito_titulo: "DPOC (Padrão obstrutivo irreversível)."
+        }
+    }
+];
+
+// ==========================================
+// 2. LÓGICA DO SISTEMA (Ligar/Desligar Telas)
+// ==========================================
+let casoAtual = {};
+
+// Quando a página carregar...
+window.onload = function() {
+    const seletor = document.getElementById('seletorCaso');
+    
+    // Preenche o menu com os casos do BD
+    casosBD.forEach((caso, index) => {
+        const option = document.createElement('option');
+        option.value = index;
+        option.text = caso.nome_patologia;
+        seletor.appendChild(option);
+    });
+
+    carregarCaso(0);
+};
+
+// Carrega as informações do JSON para o HTML
+function carregarCaso(index) {
+    casoAtual = casosBD[index];
+    resetarInterface();
+
+    // Injeta os dados no Painel Fixo do Paciente
+    document.getElementById('txt_paciente').innerText = casoAtual.etapa1.paciente;
+    document.getElementById('txt_historia').innerText = casoAtual.etapa1.historia;
+    document.getElementById('txt_antecedentes').innerText = casoAtual.etapa1.antecedentes;
+    document.getElementById('txt_exame_fisico').innerText = casoAtual.etapa1.exame_fisico;
+
+    // Etapa 1
+    document.getElementById('lbl_pergunta1').innerText = casoAtual.etapa1.pergunta;
+    document.getElementById('gab_titulo1').innerText = casoAtual.etapa1.gabarito_titulo;
+    document.getElementById('gab_justificativa1').innerText = casoAtual.etapa1.gabarito_justificativa;
+
+    // Etapa 2
+    document.getElementById('txt_contexto2').innerText = casoAtual.etapa2.contexto;
+    document.getElementById('lbl_pergunta2').innerText = casoAtual.etapa2.pergunta;
+    document.getElementById('gab_titulo2').innerText = casoAtual.etapa2.gabarito_titulo;
+    document.getElementById('gab_justificativa2').innerText = casoAtual.etapa2.gabarito_justificativa;
+
+    // Etapa 3
+    document.getElementById('txt_laudo_exame').innerText = casoAtual.etapa3.laudo_exame;
+
+    // Lógica Dinâmica: Patologia VS Funcional (Oculta/Mostra divs específicas)
+    const blocoPatologia = document.getElementById('bloco_patologia');
+    const blocoFuncional = document.getElementById('bloco_funcional');
+    const gabPatologia = document.getElementById('gab_patologia');
+    const gabFuncional = document.getElementById('gab_funcional');
+    
+    const blocoLaudoPatologico = document.getElementById('bloco_laudo_patologico');
+    const blocoConclusaoClinica = document.getElementById('bloco_conclusao_clinica');
+
+    if (casoAtual.tipo_exame === 'patologia') {
+        blocoPatologia.classList.add('visivel');
+        blocoFuncional.classList.remove('visivel');
+        gabPatologia.classList.add('visivel');
+        gabFuncional.classList.remove('visivel');
+        
+        document.getElementById('gab_solicitacao').innerText = casoAtual.etapa3.gabarito_solicitacao;
+
+        blocoLaudoPatologico.classList.add('visivel');
+        blocoConclusaoClinica.classList.remove('visivel');
+        document.getElementById('txt_macroscopia').innerText = casoAtual.etapa4.macroscopia;
+        document.getElementById('txt_microscopia').innerText = casoAtual.etapa4.microscopia;
+        
+    } else {
+        blocoFuncional.classList.add('visivel');
+        blocoPatologia.classList.remove('visivel');
+        gabFuncional.classList.add('visivel');
+        gabPatologia.classList.remove('visivel');
+
+        document.getElementById('lbl_pergunta3_alternativa').innerText = casoAtual.etapa3.pergunta_alternativa;
+        document.getElementById('gab_titulo3').innerText = casoAtual.etapa3.gabarito_titulo;
+        document.getElementById('gab_justificativa3').innerText = casoAtual.etapa3.gabarito_justificativa;
+
+        blocoConclusaoClinica.classList.add('visivel');
+        blocoLaudoPatologico.classList.remove('visivel');
+    }
+
+    // Etapa 4
+    document.getElementById('lbl_pergunta4').innerText = casoAtual.etapa4.pergunta;
+    document.getElementById('gab_titulo4').innerText = casoAtual.etapa4.gabarito_titulo;
+}
+
+// Botão Verificar
+function verificar(step) {
+    document.getElementById('gabarito' + step).style.display = 'block';
+    document.getElementById('btn_next' + step).style.display = 'block';
+    
+    // Desabilita as caixas de texto após verificar
+    if(step === 1) document.getElementById('resposta_1').disabled = true;
+    if(step === 2) document.getElementById('resposta_2').disabled = true;
+    if(step === 3) {
+        if(document.getElementById('solicitacao_unica')) document.getElementById('solicitacao_unica').disabled = true;
+        if(document.getElementById('resposta_3_alternativa')) document.getElementById('resposta_3_alternativa').disabled = true;
+    }
+    if(step === 4) document.getElementById('resposta_4').disabled = true;
+}
+
+// Botão Avançar
+function nextStep(currentStep) {
+    document.getElementById('step' + currentStep).classList.remove('active');
+    document.getElementById('step' + (currentStep + 1)).classList.add('active');
+}
+
+// Botão Finalizar Caso
+function reiniciarApp() {
+    carregarCaso(document.getElementById('seletorCaso').value);
+}
+
+// Limpa as caixas e retorna à primeira tela
+function resetarInterface() {
+    const steps = document.querySelectorAll('.step');
+    steps.forEach(s => s.classList.remove('active'));
+    document.getElementById('step1').classList.add('active');
+
+    for(let i=1; i<=4; i++) {
+        document.getElementById('gabarito' + i).style.display = 'none';
+        document.getElementById('btn_next' + i).style.display = 'none';
+    }
+    
+    const inputs = ['resposta_1', 'resposta_2', 'solicitacao_unica', 'resposta_3_alternativa', 'resposta_4'];
+    inputs.forEach(id => {
+        const el = document.getElementById(id);
+        if(el) {
+            el.value = '';
+            el.disabled = false;
+        }
+    });
+}
