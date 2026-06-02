@@ -61,6 +61,36 @@ const casosBD = [
             pergunta: "4. Com base na clínica e na prova de função pulmonar, qual o diagnóstico final?",
             gabarito_titulo: "DPOC (Padrão obstrutivo irreversível)."
         }
+    },
+    {
+        id: "adeno_pulmonar_01",
+        nome_patologia: "Adenocarcinoma Pulmonar",
+        tipo_exame: "patologia",
+        etapa1: {
+            paciente: "MTP, do sexo feminino, 64 anos, branca, professora aposentada, casada, 2 filhos saudáveis.",
+            historia: "Chega ao ambulatório com queixa de 'falta de ar e tosse persistente'. Relata que há cerca de quatro meses vem apresentando tosse seca que não cede com xaropes comuns e dispneia aos médios esforços. Refere também uma perda de peso não intencional de 7 kg no último semestre. Nega episódios de febre ou hemoptise.",
+            antecedentes: "Nega veementemente tabagismo prévio ou passivo, bem como etilismo. Indica mãe falecida por infarto agudo do miocárdio e pai hipertenso.",
+            exame_fisico: "PA = 130x80 mmHg, afebril, levemente hipocorada, eupneica no repouso e anictérica. Ausculta pulmonar revela murmúrio vesicular globalmente reduzido, sem ruídos adventícios.",
+            pergunta: "1. Analise o texto e indique as principais hipóteses diagnósticas considerando o perfil epidemiológico da paciente. Justifique sua resposta.",
+            gabarito_titulo: "Adenocarcinoma Pulmonar.",
+            gabarito_justificativa: "Trata-se do câncer de pulmão mais comum em não fumantes e mulheres. A ausência de febre afasta suspeitas infecciosas agudas, enquanto a tosse persistente, dispneia e perda de peso progressiva formam a síndrome consumptiva que levanta a forte suspeita neoplásica[cite: 5]."
+        },
+        etapa2: {
+            contexto: "Os exames laboratoriais de triagem revelam elevação significativa do marcador tumoral CEA. A equipe decide prosseguir com exames de imagem para avaliar estruturalmente o parênquima pulmonar.",
+            pergunta: "2. Qual exame de imagem é fundamental neste momento e qual a localização típica esperada da lesão para esta hipótese?",
+            gabarito_titulo: "Tomografia Computadorizada (TC) de Tórax.",
+            gabarito_justificativa: "A tomografia é o exame de escolha para localizar e caracterizar a lesão. No Adenocarcinoma Pulmonar, a lesão apresenta tipicamente uma localização mais periférica no pulmão[cite: 5]."
+        },
+        etapa3: {
+            laudo_exame: "A tomografia de tórax evidencia um nódulo pulmonar de localização periférica, de contornos espiculados e irregulares, medindo 4,2 cm no seu maior diâmetro, situado no lobo inferior esquerdo, com sinais de retração pleural adjacente. Diante da lesão, a equipe da cirurgia torácica realizou biópsia pulmonar percutânea guiada por TC.",
+            gabarito_solicitacao: "Identificação: MTP, 64 anos, Sexo Feminino.\n\nMaterial / Procedimento: Fragmentos filiformes de nódulo pulmonar (lobo inferior esquerdo) / Biópsia percutânea guiada por TC.\n\nInformes Clínicos: Paciente do sexo feminino, não tabagista, com quadro de tosse persistente crônica, dispneia e perda de peso ponderal[cite: 5]. Exames revelaram CEA elevado e TC de tórax mostrou nódulo pulmonar periférico espiculado. Suspeita clínica principal de Adenocarcinoma Pulmonar."
+        },
+        etapa4: {
+            macroscopia: "Recebidos três fragmentos filiformes de tecido brancacento e firme, medindo o maior 1,4 x 0,1 cm e o menor 0,8 x 0,1 cm. Toda a amostra foi incluída para análise (B1 - 3F - TI).",
+            microscopia: "Neoplasia epitelial maligna infiltrativa, caracterizada pela proliferação de glândulas atípicas. As células neoplásicas apresentam acentuado pleomorfismo nuclear, nucléolos evidentes e figuras de mitose. O tumor exibe predominantemente padrões arquiteturais acinar e papilífero, associados à invasão das estruturas do estroma adjacente[cite: 5].",
+            pergunta: "4. Com as informações epidemiológicas, clínicas, radiológicas e a descrição microscópica fornecida, aponte o diagnóstico definitivo.",
+            gabarito_titulo: "Adenocarcinoma Pulmonar."
+        }
     }
 ];
 
