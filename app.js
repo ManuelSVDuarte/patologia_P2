@@ -5,7 +5,7 @@ const casosBD = [
     {
         id: "scc_esofago",
         nome_patologia: "Carcinoma de Células Escamosas do Esôfago",
-        tipo_exame: "patologia", // Define que este caso exige formulário de biópsia
+        tipo_exame: "patologia", 
         etapa1: {
             paciente: "MTR, masculino, 62 anos, pedreiro aposentado.",
             historia: "Chega ao ambulatório com queixa de 'entalo crônico e dor no peito'. Relata dificuldade progressiva para engolir (disfagia) há cinco meses. Inicialmente engasgava com sólidos, mas agora o entalo ocorre até com líquidos, associado à dor retroesternal. Perda de peso estimada em 15 kg no semestre.",
@@ -35,7 +35,7 @@ const casosBD = [
     {
         id: "dpoc_01",
         nome_patologia: "Doença Pulmonar Obstrutiva Crônica (DPOC)",
-        tipo_exame: "funcional", // Oculta a biópsia e mostra a análise funcional
+        tipo_exame: "funcional", 
         etapa1: {
             paciente: "RFS, masculino, 62 anos, motorista aposentado.",
             historia: "Dispneia progressiva limitante e tosse crônica com expectoração matinal há vários anos.",
@@ -65,51 +65,45 @@ const casosBD = [
 ];
 
 // ==========================================
-// 2. LÓGICA DO SISTEMA (Ligar/Desligar Telas)
+// 2. LÓGICA DO SISTEMA
 // ==========================================
 let casoAtual = {};
 
-// Quando a página carregar...
 window.onload = function() {
     const seletor = document.getElementById('seletorCaso');
     
-    // Preenche o menu com os casos do BD
     casosBD.forEach((caso, index) => {
         const option = document.createElement('option');
         option.value = index;
-        option.text = caso.nome_patologia;
+        // A MUDANÇA ACONTECEU AQUI: 
+        // Em vez de puxar o nome da patologia, o sistema cria o texto "Caso Clínico 1", "Caso Clínico 2", etc.
+        option.text = "Caso Clínico " + (index + 1); 
         seletor.appendChild(option);
     });
 
     carregarCaso(0);
 };
 
-// Carrega as informações do JSON para o HTML
 function carregarCaso(index) {
     casoAtual = casosBD[index];
     resetarInterface();
 
-    // Injeta os dados no Painel Fixo do Paciente
     document.getElementById('txt_paciente').innerText = casoAtual.etapa1.paciente;
     document.getElementById('txt_historia').innerText = casoAtual.etapa1.historia;
     document.getElementById('txt_antecedentes').innerText = casoAtual.etapa1.antecedentes;
     document.getElementById('txt_exame_fisico').innerText = casoAtual.etapa1.exame_fisico;
 
-    // Etapa 1
     document.getElementById('lbl_pergunta1').innerText = casoAtual.etapa1.pergunta;
     document.getElementById('gab_titulo1').innerText = casoAtual.etapa1.gabarito_titulo;
     document.getElementById('gab_justificativa1').innerText = casoAtual.etapa1.gabarito_justificativa;
 
-    // Etapa 2
     document.getElementById('txt_contexto2').innerText = casoAtual.etapa2.contexto;
     document.getElementById('lbl_pergunta2').innerText = casoAtual.etapa2.pergunta;
     document.getElementById('gab_titulo2').innerText = casoAtual.etapa2.gabarito_titulo;
     document.getElementById('gab_justificativa2').innerText = casoAtual.etapa2.gabarito_justificativa;
 
-    // Etapa 3
     document.getElementById('txt_laudo_exame').innerText = casoAtual.etapa3.laudo_exame;
 
-    // Lógica Dinâmica: Patologia VS Funcional (Oculta/Mostra divs específicas)
     const blocoPatologia = document.getElementById('bloco_patologia');
     const blocoFuncional = document.getElementById('bloco_funcional');
     const gabPatologia = document.getElementById('gab_patologia');
@@ -145,17 +139,14 @@ function carregarCaso(index) {
         blocoLaudoPatologico.classList.remove('visivel');
     }
 
-    // Etapa 4
     document.getElementById('lbl_pergunta4').innerText = casoAtual.etapa4.pergunta;
     document.getElementById('gab_titulo4').innerText = casoAtual.etapa4.gabarito_titulo;
 }
 
-// Botão Verificar
 function verificar(step) {
     document.getElementById('gabarito' + step).style.display = 'block';
     document.getElementById('btn_next' + step).style.display = 'block';
     
-    // Desabilita as caixas de texto após verificar
     if(step === 1) document.getElementById('resposta_1').disabled = true;
     if(step === 2) document.getElementById('resposta_2').disabled = true;
     if(step === 3) {
@@ -165,18 +156,15 @@ function verificar(step) {
     if(step === 4) document.getElementById('resposta_4').disabled = true;
 }
 
-// Botão Avançar
 function nextStep(currentStep) {
     document.getElementById('step' + currentStep).classList.remove('active');
     document.getElementById('step' + (currentStep + 1)).classList.add('active');
 }
 
-// Botão Finalizar Caso
 function reiniciarApp() {
     carregarCaso(document.getElementById('seletorCaso').value);
 }
 
-// Limpa as caixas e retorna à primeira tela
 function resetarInterface() {
     const steps = document.querySelectorAll('.step');
     steps.forEach(s => s.classList.remove('active'));
