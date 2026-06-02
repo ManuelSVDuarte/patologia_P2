@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulador de Casos Clínicos - PBL</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --bg-color: #ecf0f1;
+            --text-color: #333;
+            --card-bg: #fff;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 800px;
+            padding: 30px;
+            overflow: hidden;
+        }
+
+        h1, h2, h3 {
+            color: var(--primary-color);
+            margin-top: 0;
+        }
+
+        .step {
+            display: none;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        .step.active {
+            display: block;
+        }
+
+        .case-text {
+            background-color: #f9f9f9;
+            border-left: 4px solid var(--secondary-color);
+            padding: 15px;
+            margin-bottom: 20px;
+            font-size: 1.1em;
+            line-height: 1.6;
+        }
+
+        label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 8px;
+            color: var(--primary-color);
+        }
+
+        textarea, input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-family: inherit;
+            font-size: 1em;
+            box-sizing: border-box;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        button {
+            background-color: var(--secondary-color);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            font-size: 1em;
+            border-radius: 5px;
+            cursor: pointer;
+            float: right;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #2980b9;
+        }
+
+        .feedback-area {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 2px solid #eee;
+        }
+
+        .solicitacao-form {
+            background-color: #fcfcfc;
+            border: 1px solid #ddd;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    
+    <!-- ETAPA 1: Apresentação do Caso e Hipótese -->
+    <div id="step1" class="step active">
+        <h2>Etapa 1: Anamnese e Exame Físico</h2>
+        <div class="case-text">
+            <strong>Paciente:</strong> MTR, masculino, 62 anos, branco, pedreiro aposentado.<br><br>
+            <strong>História:</strong> Chega ao ambulatório com queixa de "entalo crônico e dor no peito". A filha relata dificuldade progressiva para engolir (disfagia) há cinco meses. Inicialmente apenas com sólidos (carnes), mas agora engasga até com líquidos, associado à dor retroesternal durante as refeições. Perda de peso estimada em 15 kg no semestre.<br><br>
+            <strong>Antecedentes:</strong> Tabagismo e alcoolismo diários desde os 16 anos.<br>
+            <strong>Exame Físico:</strong> Caquético, hipocorado (2+/4+), anictérico e afebril.
+        </div>
+        <label for="hipotese">1. Qual a sua principal hipótese diagnóstica estruturada?</label>
+        <textarea id="hipotese" placeholder="Digite sua hipótese justificando com os dados clínicos..."></textarea>
+        <button onclick="nextStep(1)">Avançar para Exames</button>
+    </div>
+
+    <!-- ETAPA 2: Solicitação de Exames Complementares -->
+    <div id="step2" class="step">
+        <h2>Etapa 2: Investigação Complementar</h2>
+        <div class="case-text">
+            Diante do quadro de disfagia progressiva com sinais de alarme em paciente idoso com fatores de risco, é necessário prosseguir com a investigação estrutural.
+        </div>
+        <label for="exames">2. Quais exames complementares você solicita neste momento?</label>
+        <textarea id="exames" placeholder="Ex: Endoscopia, Tomografia, Laboratório..."></textarea>
+        <button onclick="nextStep(2)">Avançar para Resultados</button>
+    </div>
+
+    <!-- ETAPA 3: Laudo do Exame e Solicitação Histopatológica -->
+    <div id="step3" class="step">
+        <h2>Etapa 3: Achados e Conduta Especializada</h2>
+        <div class="case-text">
+            <strong>Laudo da Endoscopia Digestiva Alta (EDA):</strong><br>
+            Presença de volumosa lesão exofítica no terço médio do esôfago, de superfície friável e com áreas de ulcerações. A massa tumoral é concêntrica e causa grave estreitamento luminal, impedindo a progressão do aparelho. Foram coletados fragmentos (biópsia).
+        </div>
+        <h3>Preencha a Solicitação de Exame Anatomopatológico:</h3>
+        <div class="solicitacao-form">
+            <label for="sol_nome">Identificação do Paciente:</label>
+            <input type="text" id="sol_nome" value="MTR, 62 anos, masc">
+            
+            <label for="sol_material">Material Coletado / Procedimento:</label>
+            <input type="text" id="sol_material" placeholder="Ex: Fragmentos de mucosa esofágica / Biópsia por EDA">
+            
+            <label for="sol_clinica">Resumo Clínico e Suspeita (Essencial para o Patologista):</label>
+            <textarea id="sol_clinica" placeholder="Resuma os sintomas, achados da EDA e suspeita..."></textarea>
+        </div>
+        <button onclick="nextStep(3)">Enviar ao Laboratório</button>
+    </div>
+
+    <!-- ETAPA 4: Laudo Patológico e Diagnóstico Final -->
+    <div id="step4" class="step">
+        <h2>Etapa 4: Diagnóstico Definitivo</h2>
+        <div class="case-text">
+            <strong>Laudo Anatomopatológico:</strong><br>
+            <strong>Macroscopia:</strong> Recebidos 5 fragmentos irregulares, pardacentos e firmes. (B1 - 5F - TI).<br>
+            <strong>Microscopia:</strong> Neoplasia epitelial maligna infiltrativa. Proliferação de células escamosas atípicas, com acentuado pleomorfismo nuclear, perda da relação núcleo-citoplasma e queratinização irregular. Presença de frequentes mitoses atípicas. Franca invasão do estroma conjuntivo subjacente por ninhos e cordões de células tumorais, com intensa reação desmoplásica.
+        </div>
+        <label for="diagnostico_final">3. Com base na integração clínico-patológica, qual o diagnóstico final?</label>
+        <input type="text" id="diagnostico_final" placeholder="Ex: Neoplasia maligna tipo...">
+        <button onclick="finishCase()">Concluir Caso</button>
+    </div>
+
+    <!-- ETAPA 5: Resumo e Feedback -->
+    <div id="step5" class="step">
+        <h2>Caso Concluído com Sucesso!</h2>
+        <div class="case-text">
+            Excelente trabalho na condução da investigação. Abaixo está o resumo do que você estruturou:
+        </div>
+        <div id="resumo_respostas" class="feedback-area">
+            <!-- As respostas serão injetadas aqui pelo JS -->
+        </div>
+        <button onclick="location.reload()" style="float: left; background-color: #7f8c8d;">Novo Caso</button>
+    </div>
+
+</div>
+
+<script>
+    // Armazena as respostas do usuário
+    const userData = {};
+
+    function nextStep(currentStep) {
+        // Salva os dados do passo atual
+        if (currentStep === 1) userData.hipotese = document.getElementById('hipotese').value;
+        if (currentStep === 2) userData.exames = document.getElementById('exames').value;
+        if (currentStep === 3) {
+            userData.sol_material = document.getElementById('sol_material').value;
+            userData.sol_clinica = document.getElementById('sol_clinica').value;
+        }
+
+        // Esconde o passo atual e mostra o próximo
+        document.getElementById(`step${currentStep}`).classList.remove('active');
+        document.getElementById(`step${currentStep + 1}`).classList.add('active');
+    }
+
+    function finishCase() {
+        userData.diagnostico_final = document.getElementById('diagnostico_final').value;
+        
+        // Oculta tela 4 e mostra a 5
+        document.getElementById('step4').classList.remove('active');
+        document.getElementById('step5').classList.add('active');
+
+        // Gera o resumo na tela final
+        const resumoDiv = document.getElementById('resumo_respostas');
+        resumoDiv.innerHTML = `
+            <p><strong>Sua Hipótese Diagnóstica:</strong> <br> ${userData.hipotese || 'Não preenchido'}</p>
+            <p><strong>Seus Exames Solicitados:</strong> <br> ${userData.exames || 'Não preenchido'}</p>
+            <p><strong>Sua Solicitação de Patologia:</strong> <br> 
+               <em>Material:</em> ${userData.sol_material || 'Não preenchido'}<br>
+               <em>Dados Clínicos:</em> ${userData.sol_clinica || 'Não preenchido'}
+            </p>
+            <p><strong>Seu Diagnóstico Final:</strong> <br> ${userData.diagnostico_final || 'Não preenchido'}</p>
+        `;
+    }
+</script>
+
+</body>
+</html>
