@@ -83,7 +83,7 @@ const casosBD = [
         },
         etapa3: {
             laudo_exame: "A tomografia de tórax evidencia um nódulo pulmonar de localização periférica, de contornos espiculados e irregulares, medindo 4,2 cm no seu maior diâmetro, situado no lobo inferior esquerdo, com sinais de retração pleural adjacente. Diante da lesão, a equipe da cirurgia torácica realizou biópsia pulmonar percutânea guiada por TC.",
-            gabarito_solicitacao: "Identificação: MTP, 64 anos, Sexo Feminino.\n\nMaterial / Procedimento: Fragmentos filiformes de nódulo pulmonar (lobo inferior esquerdo) / Biópsia percutânea guiada por TC.\n\nInformes Clínicos: Paciente do sexo feminino, não tabagista, com quadro de tosse persistente crônica, dispneia e perda de peso ponderal[cite: 5]. Exames revelaram CEA elevado e TC de tórax mostrou nódulo pulmonar periférico espiculado. Suspeita clínica principal de Adenocarcinoma Pulmonar."
+            gabarito_solicitacao: "PEDIDO DE EXAME ANATOMOPATOLÓGICO\n\nIdentificação do Paciente: Nome: M. T. P.  |  Sexo: Feminino  |  Idade: 64 anos\nProcedência: Ambulatório de Cirurgia Torácica / Radiologia Intervencionista\n\nNatureza do Material:\nTrês (3) fragmentos filiformes de parênquima pulmonar obtidos por biópsia percutânea por agulha grossa (Core Biopsy) guiada por TC.\n\nHistória Clínica e Exame Físico:\nPaciente de 64 anos, professora aposentada, não tabagista (carga tabágica zero) e não etilista. Apresenta quadro de tosse seca persistente e dispneia aos médios esforços há 4 meses, associada a emagrecimento não intencional de 7 kg no último semestre. Sem febre ou hemoptise. Exame físico sem alterações de relevo, exceto por murmúrio vesicular difusamente reduzido.\n\nAchados Laboratoriais e Radiológicos:\nLaboratório: Marcador tumoral CEA significativamente elevado.\nTC de Tórax: Nódulo pulmonar periférico de contornos espiculados e irregulares, medindo 4,2 cm no maior diâmetro, localizado no lobo inferior esquerdo (LIE), com sinais de retração pleural adjacente.\n\nHipótese Diagnóstica:\nNeoplasia pulmonar primária (Adenocarcinoma pulmonar) vs. Doença metastática.\n\nSolicitação:\nSolicito avaliação histopatológica da amostra para confirmação diagnóstica. Havendo confirmação de neoplasia maligna, favor processar blocos visando futura investigação imuno-histoquímica e molecular.\n\nData: ___/___/____  |  Carimbo e Assinatura do Médico Assistente: _____________________"
         },
         etapa4: {
             macroscopia: "Recebidos três fragmentos filiformes de tecido brancacento e firme, medindo o maior 1,4 x 0,1 cm e o menor 0,8 x 0,1 cm. Toda a amostra foi incluída para análise (B1 - 3F - TI).",
@@ -92,6 +92,7 @@ const casosBD = [
             gabarito_titulo: "Adenocarcinoma Pulmonar."
         }
     }
+    
 ];
 
 // ==========================================
