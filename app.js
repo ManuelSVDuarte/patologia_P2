@@ -231,16 +231,34 @@ document.addEventListener('DOMContentLoaded', function() {
     const msg = document.getElementById('mensagem_dinamica');
 
     // Preenche o menu e a lista da tela inicial
-    if (seletor && listaUL) {
-        casosBD.forEach((caso, index) => {
-            const option = document.createElement('option');
-            option.value = index;
-            option.text = "Caso Clínico " + (index + 1);
-            seletor.appendChild(option);
-            
-            const li = document.createElement('li');
-            li.innerHTML = `<strong>Caso ${index + 1}:</strong> ${caso.nome_patologia}`;
-            listaUL.appendChild(li);
+   // Dentro do seu DOMContentLoaded, substitua o preenchimento da lista por este:
+
+if (seletor && listaUL) {
+    casosBD.forEach((caso, index) => {
+        // Preenche o menu dropdown (como já estava)
+        const option = document.createElement('option');
+        option.value = index;
+        option.text = "Caso Clínico " + (index + 1);
+        seletor.appendChild(option);
+        
+        // CRIAÇÃO DA LISTA CLICÁVEL NA TELA INICIAL
+        const li = document.createElement('li');
+        li.style.cursor = 'pointer';
+        li.style.padding = '10px';
+        li.style.margin = '5px 0';
+        li.style.background = 'rgba(255,255,255,0.05)';
+        li.style.borderRadius = '5px';
+        
+        li.innerHTML = `<strong>${caso.nome_patologia}</strong> <span style="font-size:0.8em; opacity:0.7;">(Clique para ver resumo)</span>`;
+        
+        // Ação ao clicar: Abre um modal ou exibe um resumo simples
+        li.onclick = () => {
+            alert(`Resumo do ${caso.nome_patologia}:\n\nHistória: ${caso.etapa1.historia.substring(0, 150)}...\n\nClique em 'Entrar no Laboratório' para resolver este caso.`);
+        };
+        
+        listaUL.appendChild(li);
+    });
+}
         });
     }
 
