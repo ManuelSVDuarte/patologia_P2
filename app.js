@@ -224,58 +224,27 @@ const casosBD = [
 // ==========================================
 let casoAtual = {};
 
-const mensagens = [
-    "Lembre-se: o diagnóstico não é adivinhação, é investigação! 🔍",
-    "A macroscopia é a arte de ver o que ninguém notou. 👁️",
-    "Prepare seu microscópio virtual... os granulomas estão à espreita! 🧫",
-    "O segredo está no padrão arquitetural. O que diz a lâmina hoje? 🧬",
-    "Mais vale uma biópsia bem feita do que mil suposições. 💉"
-];
-
-function iniciarSimulador() {
-    const overlay = document.getElementById('tela_abertura');
-    overlay.style.opacity = '0';
-    setTimeout(() => {
-        overlay.style.display = 'none';
-        document.getElementById('app_content').style.display = 'block';
-    }, 800);
-}
-
-// Sorteia uma mensagem ao carregar
-window.onload = function() {
-    document.getElementById('mensagem_dinamica').innerText = mensagens[Math.floor(Math.random() * mensagens.length)];
-    // ... restante da sua função onload existente ...
-    // Preenche a lista na tela de abertura
-    const listaUL = document.getElementById('lista_casos_abertura');
-    casosBD.forEach((caso, index) => {
-        const li = document.createElement('li');
-        li.innerHTML = `<strong>Caso ${index + 1}:</strong> ${caso.nome_patologia}`;
-        listaUL.appendChild(li);
-    });
-// Aguarda o documento HTML estar totalmente pronto
+// Função que executa assim que o HTML termina de carregar
 document.addEventListener('DOMContentLoaded', function() {
-    
-    // 1. Preenche o Seletor de casos do Simulador
     const seletor = document.getElementById('seletorCaso');
     const listaUL = document.getElementById('lista_casos_abertura');
-    
+    const msg = document.getElementById('mensagem_dinamica');
+
+    // Preenche o menu e a lista da tela inicial
     if (seletor && listaUL) {
         casosBD.forEach((caso, index) => {
-            // Preenche o menu dropdown
             const option = document.createElement('option');
             option.value = index;
             option.text = "Caso Clínico " + (index + 1);
             seletor.appendChild(option);
             
-            // Preenche a lista na tela de abertura
             const li = document.createElement('li');
             li.innerHTML = `<strong>Caso ${index + 1}:</strong> ${caso.nome_patologia}`;
             listaUL.appendChild(li);
         });
     }
 
-    // 2. Define a mensagem inicial
-    const msg = document.getElementById('mensagem_dinamica');
+    // Define a mensagem inicial
     if (msg) {
         const mensagens = [
             "Lembre-se: o diagnóstico não é adivinhação, é investigação! 🔍",
@@ -285,9 +254,11 @@ document.addEventListener('DOMContentLoaded', function() {
         msg.innerText = mensagens[Math.floor(Math.random() * mensagens.length)];
     }
 
-    // 3. Carrega o primeiro caso por padrão
+    // Carrega o primeiro caso
     carregarCaso(0);
 });
+
+// FUNÇÕES GLOBAIS (Devem estar fora do DOMContentLoaded para serem acessíveis pelos botões)
 
 function carregarCaso(index) {
     casoAtual = casosBD[index];
@@ -324,12 +295,10 @@ function carregarCaso(index) {
         gabFuncional.classList.remove('visivel');
         
         document.getElementById('gab_solicitacao').innerText = casoAtual.etapa3.gabarito_solicitacao;
-
         blocoLaudoPatologico.classList.add('visivel');
         blocoConclusaoClinica.classList.remove('visivel');
         document.getElementById('txt_macroscopia').innerText = casoAtual.etapa4.macroscopia;
         document.getElementById('txt_microscopia').innerText = casoAtual.etapa4.microscopia;
-        
     } else {
         blocoFuncional.classList.add('visivel');
         blocoPatologia.classList.remove('visivel');
@@ -348,10 +317,18 @@ function carregarCaso(index) {
     document.getElementById('gab_titulo4').innerText = casoAtual.etapa4.gabarito_titulo;
 }
 
+function iniciarSimulador() {
+    const overlay = document.getElementById('tela_abertura');
+    overlay.style.opacity = '0';
+    setTimeout(() => {
+        overlay.style.display = 'none';
+        document.getElementById('app_content').style.display = 'block';
+    }, 800);
+}
+
 function verificar(step) {
     document.getElementById('gabarito' + step).style.display = 'block';
     document.getElementById('btn_next' + step).style.display = 'block';
-    
     if(step === 1) document.getElementById('resposta_1').disabled = true;
     if(step === 2) document.getElementById('resposta_2').disabled = true;
     if(step === 3) {
@@ -374,18 +351,13 @@ function resetarInterface() {
     const steps = document.querySelectorAll('.step');
     steps.forEach(s => s.classList.remove('active'));
     document.getElementById('step1').classList.add('active');
-
     for(let i=1; i<=4; i++) {
         document.getElementById('gabarito' + i).style.display = 'none';
         document.getElementById('btn_next' + i).style.display = 'none';
     }
-    
     const inputs = ['resposta_1', 'resposta_2', 'solicitacao_unica', 'resposta_3_alternativa', 'resposta_4'];
     inputs.forEach(id => {
         const el = document.getElementById(id);
-        if(el) {
-            el.value = '';
-            el.disabled = false;
-        }
+        if(el) { el.value = ''; el.disabled = false; }
     });
 }
