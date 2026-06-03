@@ -125,62 +125,63 @@ const casosBD = [
     {
         id: "tb_pulmonar_01",
         nome_patologia: "Tuberculose Pulmonar",
-        tipo_exame: "patologia", // Mantém a estrutura de solicitação, mas focada na exclusão de malignidade
+        tipo_exame: "patologia", // Mantemos patologia pois a biópsia foi necessária para descartar malignidade/coinfecção
         etapa1: {
-            paciente: "MJS, do sexo masculino, 45 anos, pardo, ajudante de pedreiro.",
-            historia: "Tosse crônica há 5 meses (inicialmente seca, agora produtiva e hemoptoica), sudorese noturna intensa e perda de peso acentuada. Relata convívio em comunidade com alta densidade populacional.",
+            paciente: "MJS, 45 anos, ajudante de pedreiro, morador de comunidade com alta densidade populacional.",
+            historia: "Paciente relata: 'Doutor, minha tosse já dura cinco meses. Achei que era só uma alergia por causa da poeira da obra, mas nas últimas semanas ela ficou muito pesada, com catarro e, algumas vezes, uns fios de sangue. De noite, acordo todo suado, a roupa chega a ficar encharcada, e minhas calças estão caindo de tanto que emagreci'.",
             antecedentes: "Nega tabagismo. Uso esporádico de álcool.",
-            exame_fisico: "PA = 110x70 mmHg, febrícula (37,6ºC), taquicárdico, emagrecido e descorado. Ausculta com murmúrio vesicular diminuído em ápice pulmonar direito, com estertores finos.",
-            pergunta: "1. Analise o perfil socioeconômico e a clínica, correlacionando-os com o risco epidemiológico para a principal hipótese.",
-            gabarito_titulo: "Tuberculose Pulmonar.",
-            gabarito_justificativa: "A pobreza e a aglomeração urbana facilitam a disseminação do bacilo. O quadro clínico clássico de tosse >3 semanas, sudorese noturna e emagrecimento (síndrome consuntiva) em área endêmica aponta para a TB."
+            exame_fisico: "Paciente febril (37,6ºC), taquicárdico e emagrecido. Murmúrio vesicular diminuído em ápice pulmonar direito, com estertores finos.",
+            pergunta: "1. Analise o relato e correlacione as condições de moradia (aglomeração) com a epidemiologia desta patologia.",
+            gabarito_titulo: "Transmissão por gotículas em ambientes fechados.",
+            gabarito_justificativa: "A Tuberculose (TB) é uma doença de transmissão aérea facilitada pela aglomeração e precariedade habitacional, onde o contato prolongado em ambientes sem ventilação aumenta drasticamente o risco de contágio do bacilo de Koch."
         },
         etapa2: {
-            contexto: "A equipe solicita radiografia de tórax e teste tuberculínico (PPD).",
-            pergunta: "2. Cite os três principais achados clínicos e radiológicos clássicos para esta patologia.",
-            gabarito_titulo: "Sintomas constitucionais e imagem apical.",
-            gabarito_justificativa: "1. Tosse produtiva/hemoptoica persistente; 2. Emagrecimento e sudorese noturna; 3. Consolidação e cavitação em ápice pulmonar na radiografia."
+            contexto: "Baciloscopia de escarro confirmou a presença de BAAR. Radiografia mostrou cavitação apical.",
+            pergunta: "2. Cite os três principais achados que definem a suspeita clínica/radiológica de TB descritos.",
+            gabarito_titulo: "Tríade Clínica e Radiológica da TB.",
+            gabarito_justificativa: "1. Tosse produtiva/hemoptoica persistente > 3 semanas; 2. Sintomas constitucionais (sudorese noturna e perda de peso); 3. Cavitação em ápice pulmonar na radiografia."
         },
         etapa3: {
-            laudo_exame: "A Baciloscopia de escarro confirmou a presença de BAAR (Bacilos Álcool-Ácido Resistentes). Devido à extensa cavitação e necessidade de descartar lesão neoplásica mascarada, optou-se pela biópsia transbrônquica.",
-            gabarito_solicitacao: "PEDIDO DE EXAME ANATOMOPATOLÓGICO\n\nIdentificação do Paciente: Nome: M. J. S. | Sexo: Masculino | Idade: 45 anos\nProcedência: Unidade Básica de Saúde / Pneumologia\n\nNatureza do Material:\nFragmentos teciduais obtidos por biópsia transbrônquica da borda de lesão cavitária apical (Pulmão Direito).\n\nHistória Clínica:\nPaciente com tosse produtiva/hemoptoica há 5 meses, sudorese noturna e perda ponderal acentuada. PPD fortemente positivo. Baciloscopia de escarro positiva para BAAR.\n\nAchados Radiológicos:\nRadiografia de tórax e TC evidenciando consolidação e extensa cavitação em ápice pulmonar direito.\n\nHipótese Diagnóstica:\nTuberculose pulmonar cavitária (excluir lesão neoplásica secundária).\n\nSolicitação:\nSolicito avaliação histopatológica da borda da cavidade para confirmar padrão inflamatório granulomatoso e descartar malignidade (coinfecção ou neoplasia associada).\n\nData: ___/___/____ | Carimbo e Assinatura do Médico Assistente: _____________________"
+            laudo_exame: "Baciloscopia de escarro positiva (BAAR+). Devido à dúvida diagnóstica sobre coinfecção ou malignidade, foi realizada biópsia transbrônquica da borda da cavidade.",
+            gabarito_solicitacao: "PEDIDO DE EXAME ANATOMOPATOLÓGICO\n\nIdentificação do Paciente: Nome: M. J. S. | Sexo: Masculino | Idade: 45 anos\nProcedência: UBS / Pneumologia\n\nNatureza do Material:\nFragmentos teciduais por biópsia transbrônquica da borda de lesão cavitária apical (Pulmão Direito).\n\nHistória Clínica:\nPaciente com tosse hemoptoica (5 meses), sudorese noturna e emagrecimento acentuado. PPD positivo e BAAR+ no escarro.\n\nAchados Radiológicos:\nRadiografia/TC evidenciando consolidação e extensa cavitação em ápice pulmonar direito.\n\nHipótese Diagnóstica:\nTuberculose pulmonar cavitária (excluir lesão neoplásica associada).\n\nSolicitação:\nSolicito avaliação histopatológica para confirmação de padrão granulomatoso e exclusão de malignidade na borda da cavidade.\n\nData: ___/___/____ | Carimbo e Assinatura do Médico Assistente: _____________________"
         },
         etapa4: {
-            macroscopia: "Três pequenos fragmentos teciduais, pardo-amarelados, com áreas centrais friáveis e esbranquiçadas (aspecto caseoso). (B1 - 3F - TI).",
-            microscopia: "Processo inflamatório crônico granulomatoso. Múltiplos granulomas com extensa necrose caseosa central, circundados por macrófagos epitelioides e células gigantes multinucleadas (tipo Langhans). Periferia com infiltrado linfoplasmocitário.",
-            pergunta: "4. Com base na descrição microscópica (granuloma, caseosidade e células de Langhans), aponte o diagnóstico definitivo.",
-            gabarito_titulo: "Tuberculose Pulmonar (Inflamação Granulomatosa com Necrose Caseosa)."
+            macroscopia: "Três fragmentos de aspecto friável e coloração esbranquiçada (quejosa). (B1 - 3F - TI).",
+            microscopia: "Intenso processo inflamatório crônico granulomatoso. Múltiplos granulomas com extensa necrose caseosa central, macrófagos epitelioides e células gigantes de Langhans.",
+            pergunta: "4. Aponte o diagnóstico definitivo com base no achado de 'células de Langhans' e necrose caseosa.",
+            gabarito_titulo: "Tuberculose Pulmonar (Inflamação Granulomatosa Caseosa).",
+            gabarito_justificativa: "O diagnóstico é de TB pulmonar. A presença de granulomas com necrose caseosa e células gigantes de Langhans é a resposta imune clássica e patognomônica da infecção pelo Mycobacterium tuberculosis."
         }
     },
     {
-        id: "pneumonia_01",
+        id: "pneumonia_02_idoso",
         nome_patologia: "Pneumonia Bacteriana",
-        tipo_exame: "funcional", // Isso fará o sistema pular a biópsia e focar na análise de secreção
+        tipo_exame: "funcional",
         etapa1: {
-            paciente: "JVO, do sexo masculino, 79 anos, branco, aposentado, residente em ILPI.",
-            historia: "Trazido à emergência por rebaixamento do nível de consciência. Febre alta há 48 horas, tosse produtiva espessa e dor torácica pleurítica.",
-            antecedentes: "Hipertensão e diabetes tipo 2. Residente em asilo.",
-            exame_fisico: "PA = 90x60 mmHg, febril (39,1ºC), taquicárdico, taquipneico. Ausculta com estertores crepitantes grossos em base pulmonar direita.",
-            pergunta: "1. Analise o texto e indique como a idade do paciente e o local de residência funcionam como fatores de risco.",
-            gabarito_titulo: "Pneumonia Adquirida na Comunidade/Institucional.",
-            gabarito_justificativa: "A idade avançada (imunossenescência) e o ambiente de ILPI (aglomeração e maior taxa de colonização por patógenos) são fatores de risco determinantes para pneumonias graves em idosos."
+            paciente: "JVO, 79 anos, aposentado, residente em Instituição de Longa Permanência (ILPI).",
+            historia: "O cuidador relata: 'O seu JVO estava bem ontem, mas hoje acordou muito confuso, não reconheceu a gente e parecia estar sonolento demais. Ele começou a tossir um catarro grosso e reclamar de uma dor no peito, parece que dói mais quando ele puxa o ar fundo. A gente notou também que ele estava com o corpo muito quente'.",
+            antecedentes: "Hipertensão e diabetes tipo 2.",
+            exame_fisico: "Paciente prostrado, rebaixado. PA = 90x60 mmHg, febre (39,1ºC), taquicárdico e taquipneico. Ausculta com estertores crepitantes grossos em base pulmonar direita.",
+            pergunta: "1. Analise o relato e explique por que a idade e a residência em ILPI são fatores de risco críticos para a gravidade desta pneumonia.",
+            gabarito_titulo: "Vulnerabilidade e Risco Institucional.",
+            gabarito_justificativa: "Idosos apresentam imunossenescência e reserva fisiológica reduzida, tornando infecções bacterianas rapidamente graves. O ambiente de ILPI expõe o paciente a patógenos com maior resistência e risco de microaspiração, comum em pacientes com declínio cognitivo."
         },
         etapa2: {
-            contexto: "Exames mostram leucocitose, hipoxemia e radiografia com infiltrado alveolar e broncogramas aéreos.",
-            pergunta: "2. Correlacione a clínica com os achados laboratoriais e indique as categorias etiológicas a investigar.",
-            gabarito_titulo: "Síndrome de Consolidação Pulmonar.",
-            gabarito_justificativa: "A clínica de febre/tosse e a imagem de consolidação alveolar refletem o preenchimento dos alvéolos por exsudato inflamatório (pus). Deve-se investigar bactérias (Streptococcus pneumoniae, agentes atípicos), vírus e, em casos refratários, fungos."
+            contexto: "Exames de sangue indicam leucocitose grave e gasometria mostra hipoxemia. Radiografia de tórax revela consolidado alveolar com broncogramas aéreos no lobo inferior direito.",
+            pergunta: "2. Correlacione a clínica (tosse/febre/confusão) com os achados de imagem (broncogramas aéreos). O que é o broncograma?",
+            gabarito_titulo: "Síndrome de Consolidação Alveolar.",
+            gabarito_justificativa: "A clínica de sepse pulmonar é explicada pela inflamação alveolar intensa. O broncograma aéreo ocorre quando o ar nos brônquios contrasta com os alvéolos ao redor, que estão preenchidos por pus (exsudato), confirmando a consolidação alveolar."
         },
         etapa3: {
-            laudo_exame: "Devido à evolução para insuficiência respiratória grave, foi coletado Lavado Broncoalveolar (LBA) para cultura e bacterioscopia. Não foi realizada biópsia de parênquima devido ao risco desnecessário.",
-            pergunta_alternativa: "3. Justifique por que a biópsia histopatológica não é o exame padrão para o diagnóstico de pneumonia.",
-            gabarito_titulo: "Diagnóstico Clínico-Imagem-Microbiológico.",
-            gabarito_justificativa: "A pneumonia é um processo infeccioso agudo diagnosticado pelo conjunto clínico-radiológico e confirmado por microbiologia (cultura/lâmina de secreção). A biópsia é invasiva, arriscada e não altera o manejo inicial."
+            laudo_exame: "Devido à insuficiência respiratória grave e necessidade de intubação, foi coletado Lavado Broncoalveolar (LBA) para cultura e bacterioscopia. Biópsia de parênquima não foi realizada.",
+            pergunta_alternativa: "3. Por que, neste caso específico de pneumonia, a solicitação de biópsia pulmonar seria uma conduta incorreta ou iatrogênica?",
+            gabarito_titulo: "Diagnóstico Clínico-Microbiológico.",
+            gabarito_justificativa: "A pneumonia é um diagnóstico de síndrome infecciosa. A biópsia é um procedimento invasivo desnecessário que expõe o paciente a risco de hemorragia e pneumotórax, não trazendo benefícios terapêuticos frente ao diagnóstico estabelecido pelo LBA e pela radiografia."
         },
         etapa4: {
-            pergunta: "4. Com base no quadro de infiltrado alveolar e broncogramas aéreos, aponte o diagnóstico funcional.",
-            gabarito_titulo: "Pneumonia Bacteriana (Consolidação Alveolar).",
-            gabarito_justificativa: "O diagnóstico é de pneumonia bacteriana caracterizada por preenchimento alveolar (broncogramas aéreos) e dano alveolar difuso, explicando a severa hipoxemia pela alteração da relação ventilação-perfusão."
+            pergunta: "4. Com base no infiltrado inflamatório alveolar, aponte o diagnóstico histopatológico da lesão e justifique a severidade do quadro.",
+            gabarito_titulo: "Pneumonia Bacteriana Aguda (Fase de Hepatização).",
+            gabarito_justificativa: "O diagnóstico é de pneumonia bacteriana aguda. A severidade advém do preenchimento alveolar por exsudato neutrofílico e fibrinoso, causando grave desequilíbrio na troca gasosa (hipoxemia), que pode evoluir para falência respiratória."
         }
     },
     {
