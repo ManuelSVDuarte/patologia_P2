@@ -224,45 +224,36 @@ const casosBD = [
 // ==========================================
 let casoAtual = {};
 
-// Função que executa assim que o HTML termina de carregar
 document.addEventListener('DOMContentLoaded', function() {
     const seletor = document.getElementById('seletorCaso');
     const listaUL = document.getElementById('lista_casos_abertura');
     const msg = document.getElementById('mensagem_dinamica');
 
-    // Preenche o menu e a lista da tela inicial
-   // Dentro do seu DOMContentLoaded, substitua o preenchimento da lista por este:
-
-if (seletor && listaUL) {
-    casosBD.forEach((caso, index) => {
-        // Preenche o menu dropdown (como já estava)
-        const option = document.createElement('option');
-        option.value = index;
-        option.text = "Caso Clínico " + (index + 1);
-        seletor.appendChild(option);
-        
-        // CRIAÇÃO DA LISTA CLICÁVEL NA TELA INICIAL
-        const li = document.createElement('li');
-        li.style.cursor = 'pointer';
-        li.style.padding = '10px';
-        li.style.margin = '5px 0';
-        li.style.background = 'rgba(255,255,255,0.05)';
-        li.style.borderRadius = '5px';
-        
-        li.innerHTML = `<strong>${caso.nome_patologia}</strong> <span style="font-size:0.8em; opacity:0.7;">(Clique para ver resumo)</span>`;
-        
-        // Ação ao clicar: Abre um modal ou exibe um resumo simples
-        li.onclick = () => {
-            alert(`Resumo do ${caso.nome_patologia}:\n\nHistória: ${caso.etapa1.historia.substring(0, 150)}...\n\nClique em 'Entrar no Laboratório' para resolver este caso.`);
-        };
-        
-        listaUL.appendChild(li);
-    });
-}
+    // Preenche menu e lista inicial
+    if (seletor && listaUL) {
+        casosBD.forEach((caso, index) => {
+            // Menu dropdown
+            const option = document.createElement('option');
+            option.value = index;
+            option.text = "Caso Clínico " + (index + 1);
+            seletor.appendChild(option);
+            
+            // Lista clicável
+            const li = document.createElement('li');
+            li.style.cursor = 'pointer';
+            li.style.padding = '10px';
+            li.style.margin = '5px 0';
+            li.style.background = 'rgba(255,255,255,0.05)';
+            li.style.borderRadius = '5px';
+            li.innerHTML = `<strong>${caso.nome_patologia}</strong> <span style="font-size:0.8em; opacity:0.7;">(Clique para ver resumo)</span>`;
+            
+            li.onclick = () => {
+                alert(`Resumo do ${caso.nome_patologia}:\n\nHistória: ${caso.etapa1.historia.substring(0, 150)}...\n\nClique em 'Entrar no Laboratório' para resolver este caso.`);
+            };
+            listaUL.appendChild(li);
         });
     }
 
-    // Define a mensagem inicial
     if (msg) {
         const mensagens = [
             "Lembre-se: o diagnóstico não é adivinhação, é investigação! 🔍",
@@ -272,12 +263,10 @@ if (seletor && listaUL) {
         msg.innerText = mensagens[Math.floor(Math.random() * mensagens.length)];
     }
 
-    // Carrega o primeiro caso
     carregarCaso(0);
 });
 
-// FUNÇÕES GLOBAIS (Devem estar fora do DOMContentLoaded para serem acessíveis pelos botões)
-
+// FUNÇÕES GLOBAIS
 function carregarCaso(index) {
     casoAtual = casosBD[index];
     resetarInterface();
@@ -303,32 +292,24 @@ function carregarCaso(index) {
     const gabPatologia = document.getElementById('gab_patologia');
     const gabFuncional = document.getElementById('gab_funcional');
     
-    const blocoLaudoPatologico = document.getElementById('bloco_laudo_patologico');
-    const blocoConclusaoClinica = document.getElementById('bloco_conclusao_clinica');
-
     if (casoAtual.tipo_exame === 'patologia') {
-        blocoPatologia.classList.add('visivel');
-        blocoFuncional.classList.remove('visivel');
-        gabPatologia.classList.add('visivel');
-        gabFuncional.classList.remove('visivel');
+        blocoPatologia.style.display = 'block';
+        blocoFuncional.style.display = 'none';
+        gabPatologia.style.display = 'block';
+        gabFuncional.style.display = 'none';
         
         document.getElementById('gab_solicitacao').innerText = casoAtual.etapa3.gabarito_solicitacao;
-        blocoLaudoPatologico.classList.add('visivel');
-        blocoConclusaoClinica.classList.remove('visivel');
         document.getElementById('txt_macroscopia').innerText = casoAtual.etapa4.macroscopia;
         document.getElementById('txt_microscopia').innerText = casoAtual.etapa4.microscopia;
     } else {
-        blocoFuncional.classList.add('visivel');
-        blocoPatologia.classList.remove('visivel');
-        gabFuncional.classList.add('visivel');
-        gabPatologia.classList.remove('visivel');
+        blocoFuncional.style.display = 'block';
+        blocoPatologia.style.display = 'none';
+        gabFuncional.style.display = 'block';
+        gabPatologia.style.display = 'none';
 
         document.getElementById('lbl_pergunta3_alternativa').innerText = casoAtual.etapa3.pergunta_alternativa;
         document.getElementById('gab_titulo3').innerText = casoAtual.etapa3.gabarito_titulo;
         document.getElementById('gab_justificativa3').innerText = casoAtual.etapa3.gabarito_justificativa;
-
-        blocoConclusaoClinica.classList.add('visivel');
-        blocoLaudoPatologico.classList.remove('visivel');
     }
 
     document.getElementById('lbl_pergunta4').innerText = casoAtual.etapa4.pergunta;
@@ -338,22 +319,12 @@ function carregarCaso(index) {
 function iniciarSimulador() {
     const overlay = document.getElementById('tela_abertura');
     overlay.style.opacity = '0';
-    setTimeout(() => {
-        overlay.style.display = 'none';
-        document.getElementById('app_content').style.display = 'block';
-    }, 800);
+    setTimeout(() => { overlay.style.display = 'none'; document.getElementById('app_content').style.display = 'block'; }, 800);
 }
 
 function verificar(step) {
     document.getElementById('gabarito' + step).style.display = 'block';
     document.getElementById('btn_next' + step).style.display = 'block';
-    if(step === 1) document.getElementById('resposta_1').disabled = true;
-    if(step === 2) document.getElementById('resposta_2').disabled = true;
-    if(step === 3) {
-        if(document.getElementById('solicitacao_unica')) document.getElementById('solicitacao_unica').disabled = true;
-        if(document.getElementById('resposta_3_alternativa')) document.getElementById('resposta_3_alternativa').disabled = true;
-    }
-    if(step === 4) document.getElementById('resposta_4').disabled = true;
 }
 
 function nextStep(currentStep) {
@@ -366,16 +337,10 @@ function reiniciarApp() {
 }
 
 function resetarInterface() {
-    const steps = document.querySelectorAll('.step');
-    steps.forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
     document.getElementById('step1').classList.add('active');
     for(let i=1; i<=4; i++) {
         document.getElementById('gabarito' + i).style.display = 'none';
-        document.getElementById('btn_next' + i).style.display = 'none';
+        if(document.getElementById('btn_next' + i)) document.getElementById('btn_next' + i).style.display = 'none';
     }
-    const inputs = ['resposta_1', 'resposta_2', 'solicitacao_unica', 'resposta_3_alternativa', 'resposta_4'];
-    inputs.forEach(id => {
-        const el = document.getElementById(id);
-        if(el) { el.value = ''; el.disabled = false; }
-    });
 }
