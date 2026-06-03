@@ -252,22 +252,42 @@ window.onload = function() {
         li.innerHTML = `<strong>Caso ${index + 1}:</strong> ${caso.nome_patologia}`;
         listaUL.appendChild(li);
     });
-}
-
-window.onload = function() {
-    const seletor = document.getElementById('seletorCaso');
+// Aguarda o documento HTML estar totalmente pronto
+document.addEventListener('DOMContentLoaded', function() {
     
-    casosBD.forEach((caso, index) => {
-        const option = document.createElement('option');
-        option.value = index;
-        // A MUDANÇA ACONTECEU AQUI: 
-        // Em vez de puxar o nome da patologia, o sistema cria o texto "Caso Clínico 1", "Caso Clínico 2", etc.
-        option.text = "Caso Clínico " + (index + 1); 
-        seletor.appendChild(option);
-    });
+    // 1. Preenche o Seletor de casos do Simulador
+    const seletor = document.getElementById('seletorCaso');
+    const listaUL = document.getElementById('lista_casos_abertura');
+    
+    if (seletor && listaUL) {
+        casosBD.forEach((caso, index) => {
+            // Preenche o menu dropdown
+            const option = document.createElement('option');
+            option.value = index;
+            option.text = "Caso Clínico " + (index + 1);
+            seletor.appendChild(option);
+            
+            // Preenche a lista na tela de abertura
+            const li = document.createElement('li');
+            li.innerHTML = `<strong>Caso ${index + 1}:</strong> ${caso.nome_patologia}`;
+            listaUL.appendChild(li);
+        });
+    }
 
+    // 2. Define a mensagem inicial
+    const msg = document.getElementById('mensagem_dinamica');
+    if (msg) {
+        const mensagens = [
+            "Lembre-se: o diagnóstico não é adivinhação, é investigação! 🔍",
+            "A macroscopia é a arte de ver o que ninguém notou. 👁️",
+            "Prepare seu microscópio virtual... os granulomas estão à espreita! 🧫"
+        ];
+        msg.innerText = mensagens[Math.floor(Math.random() * mensagens.length)];
+    }
+
+    // 3. Carrega o primeiro caso por padrão
     carregarCaso(0);
-};
+});
 
 function carregarCaso(index) {
     casoAtual = casosBD[index];
