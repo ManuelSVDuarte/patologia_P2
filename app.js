@@ -184,34 +184,34 @@ const casosBD = [
         }
     },
     {
-        id: "tumor_neuroendocrino_01",
+        id: "tumor_carcinoide_tipico_02",
         nome_patologia: "Tumor Neuroendócrino (Carcinoide)",
         tipo_exame: "patologia",
         etapa1: {
-            paciente: "PRT, do sexo masculino, 29 anos, branco, analista de sistemas.",
-            historia: "Tosse persistente e febre há um ano, com quadros recorrentes de pneumonia no pulmão direito. Atualmente, apresenta nova febre e hemoptise.",
-            antecedentes: "Nega comorbidades e histórico de tabagismo.",
-            exame_fisico: "Ausculta pulmonar com murmúrio vesicular globalmente reduzido à direita, estertores crepitantes e macicez à percussão no lobo inferior direito.",
-            pergunta: "1. Por que pneumonias de repetição no mesmo lobo pulmonar em um adulto jovem e não tabagista sugerem lesão obstrutiva?",
-            gabarito_titulo: "Suspeita de lesão obstrutiva (Tumor).",
-            gabarito_justificativa: "Infecções recorrentes no mesmo sítio anatômico sugerem uma obstrução mecânica local (nódulo endobrônquico) que impede a drenagem das secreções, favorecendo a colonização bacteriana persistente, independentemente do tabagismo."
+            paciente: "LFS, 32 anos, professor, não tabagista.",
+            historia: "Paciente relata: 'Doutor, minha tosse já dura quase um ano. No começo, achei que fosse apenas um resfriado que não ia embora, mas ela persiste. Sinto como se tivesse algo preso no meu peito, um chiado que não para, e vez ou outra vejo raias de sangue no que eu cusso. Já tomei vários xaropes e até antibióticos para pneumonia, melhora por uns dias, mas o aperto no peito continua igual'.",
+            antecedentes: "Nega tabagismo, nega doenças crônicas. Praticante de atividades físicas.",
+            exame_fisico: "Ausculta com sibilo localizado em hemitórax direito, diminuição do murmúrio vesicular na mesma região e esforço respiratório leve.",
+            pergunta: "1. Como a cronologia e a natureza dos sintomas (chiado fixo e hemoptise) orientam o raciocínio diagnóstico para uma obstrução de via aérea central?",
+            gabarito_titulo: "Obstrução Endobrônquica.",
+            gabarito_justificativa: "O 'chiado fixo' (monofônico) é um sinal clássico de obstrução de via aérea central (nódulo endobrônquico). A persistência apesar de tratamentos para pneumonia e a hemoptise reforçam a necessidade de investigar lesão estrutural."
         },
         etapa2: {
-            contexto: "TC mostra nódulo endobrônquico central no brônquio lobar inferior direito, com realce intenso ao contraste.",
-            pergunta: "2. Considerando a faixa etária, ausência de tabagismo e achados da TC (lesão central hipercaptante), qual a principal hipótese?",
-            gabarito_titulo: "Tumor Neuroendócrino (Carcinoide).",
-            gabarito_justificativa: "Tumores neuroendócrinos (carcinoides) são neoplasias típicas de localização central, bem delimitadas e altamente vascularizadas, sendo uma das principais causas de obstrução brônquica em pacientes jovens não tabagistas."
+            contexto: "A tomografia revela uma massa endobrônquica vascularizada, um achado típico de tumores neuroendócrinos.",
+            pergunta: "2. Explique por que tumores neuroendócrinos como o Carcinoide possuem intenso realce ao contraste na TC.",
+            gabarito_titulo: "Hipervascularização.",
+            gabarito_justificativa: "Tumores neuroendócrinos são neoplasias altamente vascularizadas. O realce intenso ao contraste na TC reflete essa densa rede de capilares, sendo uma característica radiológica marcante que ajuda a diferenciá-los de carcinomas epiteliais comuns."
         },
         etapa3: {
-            laudo_exame: "Nódulo de localização endobrônquica no brônquio lobar inferior direito, medindo 2,5 cm, bem delimitado e com realce intenso ao contraste. Massa causa obstrução brônquica parcial com atelectasia.",
-            gabarito_solicitacao: "PEDIDO DE EXAME ANATOMOPATOLÓGICO\n\nIdentificação do Paciente: Nome: P. R. T. | Sexo: Masculino | Idade: 29 anos\nProcedência: Cirurgia Torácica / Broncoscopia\n\nNatureza do Material:\nQuatro (4) fragmentos teciduais obtidos por biópsia via broncoscopia de lesão endobrônquica (brônquio lobar inferior direito).\n\nHistória Clínica:\nPaciente jovem, não tabagista, com episódios de pneumonias de repetição no lobo inferior direito há 10 meses. Apresenta hemoptise recente. TC revela nódulo central endobrônquico hipercaptante de contraste.\n\nHipótese Diagnóstica:\nTumor endobrônquico (suspeita de Tumor Neuroendócrino/Carcinoide).\n\nSolicitação:\nSolicito avaliação histopatológica para diagnóstico definitivo e diferenciação neoplásica. Devido à localização e aparência radiológica, favor considerar estudo imuno-histoquímico para marcadores neuroendócrinos se necessário.\n\nData: ___/___/____ | Carimbo e Assinatura do Médico Assistente: _____________________"
+            laudo_exame: "Massa polipoide arredondada, obstruindo parcialmente o brônquio principal direito, com intensa captação de contraste. Sem linfonodomegalias hilares evidentes.",
+            gabarito_solicitacao: "PEDIDO DE EXAME ANATOMOPATOLÓGICO\n\nIdentificação do Paciente: Nome: L. F. S. | Sexo: Masculino | Idade: 32 anos\nProcedência: Cirurgia Torácica / Broncoscopia\n\nNatureza do Material:\nFragmentos obtidos por biópsia endobrônquica de massa em brônquio principal direito.\n\nHistória Clínica:\nPaciente jovem, não tabagista, com tosse persistente, hemoptise e sibilo monofônico fixo há 10 meses. TC mostra massa endobrônquica hipervascularizada.\n\nHipótese Diagnóstica:\nTumor endobrônquico (suspeita de Tumor Neuroendócrino/Carcinoide).\n\nSolicitação:\nSolicito avaliação histopatológica. Devido à vascularização da lesão, favor considerar o risco de sangramento na coleta e realizar estudo imuno-histoquímico para marcadores neuroendócrinos (cromogranina e sinaptofisina).\n\nData: ___/___/____ | Carimbo e Assinatura do Médico Assistente: _____________________"
         },
         etapa4: {
-            macroscopia: "Recebidos quatro fragmentos de tecido de coloração pardo-amarelada e consistência elástica. (B1 - 4F - TI).",
-            microscopia: "Neoplasia com células uniformes, núcleos redondos com cromatina em 'sal e pimenta'. Organização em ninhos, trabéculas e raras rosetas em estroma ricamente vascularizado. Baixa contagem de mitoses e ausência de necrose.",
-            pergunta: "4. Aponte o diagnóstico definitivo e cite os achados citológicos patognomônicos.",
-            gabarito_titulo: "Tumor Neuroendócrino (Carcinoide típico).",
-            gabarito_justificativa: "O diagnóstico é de Tumor Neuroendócrino (Carcinoide) típico. Os achados patognomônicos são a cromatina em 'sal e pimenta' e a arquitetura trabecular/ninhos com baixa atividade mitótica."
+            macroscopia: "Fragmentos de tecido elástico, amarelados, com áreas hemorrágicas. (B1 - 3F - TI).",
+            microscopia: "Proliferação de células neuroendócrinas uniformes, com cromatina em 'sal e pimenta'. Padrão arquitetural em ninhos sólidos, rico estroma vascular, sem necrose e com índice mitótico muito baixo.",
+            pergunta: "4. Aponte o diagnóstico definitivo e descreva o padrão de cromatina observado.",
+            gabarito_titulo: "Tumor Neuroendócrino (Carcinoide Típico).",
+            gabarito_justificativa: "Diagnóstico de Carcinoide típico. O padrão de cromatina em 'sal e pimenta' é característico da organização do DNA nessas células neuroendócrinas, refletindo sua diferenciação bem estabelecida."
         }
     }
     
