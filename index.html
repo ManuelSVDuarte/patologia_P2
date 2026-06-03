@@ -132,6 +132,10 @@
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
+        .info-box { background: rgba(255,255,255,0.1); padding: 15px; border-radius: 8px; margin: 20px 0; }
+        .lista-casos { margin: 20px 0; }
+        .lista-casos ul { list-style: none; padding: 0; }
+        .lista-casos li { padding: 5px 0; border-bottom: 1px solid rgba(255,255,255,0.1); }
     </style>
 </head>
 <body>
@@ -141,8 +145,26 @@
         <h1>🔬 PathoQuest</h1>
         <p>Bem-vindo ao laboratório virtual de patologia.</p>
         <div id="mensagem_dinamica"></div>
-        <button class="btn-verificar" style="margin-top:20px;" onclick="iniciarSimulador()">Entrar no Laboratório</button>
+    
+        <div class="info-box">
+            <h3>Como funciona o PathoQuest?</h3>
+            <p style="font-size: 0.9em; color: #ccc;">
+                O sistema simula a prática clínica real em 4 etapas: 
+                <strong>1. Hipótese</strong> (anamnese), <strong>2. Investigação</strong> (exames), 
+                <strong>3. Conduta</strong> (requisição formal de patologia) e 
+                <strong>4. Diagnóstico</strong> (correlação patológica).
+            </p>
     </div>
+
+    <div class="lista-casos">
+        <h3>Casos Disponíveis para Estudo:</h3>
+        <ul id="lista_casos_abertura" style="text-align: left; display: inline-block;">
+            <!-- O JS preencherá isso aqui -->
+        </ul>
+    </div>
+
+    <button class="btn-verificar" style="margin-top:20px;" onclick="iniciarSimulador()">Entrar no Laboratório</button>
+</div>
 </div>
 
 <!-- O RESTO DO SEU CÓDIGO (container) -->
