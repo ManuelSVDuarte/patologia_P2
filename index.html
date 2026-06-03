@@ -2,89 +2,268 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <title>PathoQuest - Simulador de Patologia</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulador de Casos Clínicos - PBL</title>
     <style>
-        /* Estilos mantidos para layout responsivo */
-        body { font-family: 'Segoe UI', sans-serif; background: #ecf0f1; }
-        .step { display: none; padding: 20px; background: white; border-radius: 8px; margin-bottom: 20px; }
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #27ae60;
+            --action-color: #2980b9;
+            --bg-color: #ecf0f1;
+            --text-color: #333;
+            --card-bg: #fff;
+            --case-bg: #fdfbf7; /* Cor de fundo estilo 'prancheta' */
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .header-controls {
+            width: 100%;
+            max-width: 800px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        select {
+            padding: 10px;
+            font-size: 1em;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            background-color: white;
+            color: var(--primary-color);
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .container {
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 800px;
+            padding: 30px;
+            box-sizing: border-box;
+            margin-bottom: 20px;
+        }
+
+        /* Novo estilo para o Painel Fixo do Paciente */
+        .painel-paciente {
+            background-color: var(--case-bg);
+            border: 2px solid #e0dcd3;
+            border-left: 5px solid var(--primary-color);
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+
+        h1, h2, h3 { color: var(--primary-color); margin-top: 0; }
+        
+        .step { display: none; animation: fadeIn 0.4s ease-in-out; }
         .step.active { display: block; }
-        .visivel { display: block !important; }
-        .overlay { position: fixed; top:0; left:0; width:100%; height:100%; background: #2c3e50; color:white; display:flex; justify-content:center; align-items:center; z-index:1000; }
-        #app_content { display: none; max-width: 800px; margin: auto; padding: 20px; }
+        
+        .case-text {
+            background-color: #f9f9f9;
+            border-left: 4px solid var(--action-color);
+            padding: 15px;
+            margin-bottom: 20px;
+            font-size: 1.1em;
+            line-height: 1.6;
+        }
+
+        .form-group { margin-bottom: 15px; }
+        label { font-weight: bold; display: block; margin-bottom: 8px; color: var(--primary-color); }
+        
+        textarea, input[type="text"] {
+            width: 100%; padding: 12px; border: 1px solid #ccc;
+            border-radius: 5px; font-family: inherit; font-size: 1em; box-sizing: border-box;
+            line-height: 1.5;
+        }
+        textarea { resize: vertical; min-height: 100px; }
+
+        /* Textarea maior para a solicitação de patologia */
+        #solicitacao_unica { min-height: 150px; }
+
+        .btn-verificar {
+            background-color: var(--action-color); color: white; border: none;
+            padding: 10px 20px; font-size: 1em; border-radius: 5px; cursor: pointer;
+            transition: background-color 0.3s; margin-top: 10px;
+        }
+        .btn-verificar:hover { background-color: #1c5980; }
+
+        .btn-avancar {
+            background-color: var(--secondary-color); color: white; border: none;
+            padding: 12px 25px; font-size: 1.1em; border-radius: 5px; cursor: pointer;
+            float: right; transition: background-color 0.3s; display: none; margin-top: 20px;
+        }
+        .btn-avancar:hover { background-color: #219653; }
+
+        .gabarito-box {
+            display: none; margin-top: 20px; padding: 15px; background-color: #e8f8f5;
+            border-left: 4px solid var(--secondary-color); border-radius: 4px;
+            line-height: 1.6;
+        }
+        .gabarito-box h4 { color: var(--secondary-color); margin-top: 0; margin-bottom: 10px; }
+
+        /* Classes utilitárias */
+        .dinamico { display: none; }
+        .dinamico.visivel { display: block; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
     </style>
 </head>
 <body>
 
-<div id="tela_abertura" class="overlay">
-    <div class="welcome-box">
-        <h1>🔬 PathoQuest</h1>
-        <div id="mensagem_dinamica"></div>
-        <ul id="lista_casos_abertura"></ul>
-        <button onclick="iniciarSimulador()">Entrar no Laboratório</button>
+<div id="tela_abertura" style="position:fixed; top:0; left:0; width:100%; height:100%; background:#2c3e50; color:white; z-index:9999; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center;">
+    <h1>🔬 PathoQuest</h1>
+    <p id="mensagem_dinamica"></p>
+    <div style="margin:20px 0; max-width:500px; width:90%;">
+        <h3>Casos Disponíveis (Clique para ver resumo):</h3>
+        <ul id="lista_casos_abertura" style="list-style:none; padding:0;"></ul>
     </div>
+    <button onclick="iniciarSimulador()" style="padding:15px 30px; font-size:1.2em; cursor:pointer;">Entrar no Laboratório</button>
+</div>
+<div class="header-controls">
+    <h2 style="margin: 0;">Simulador de Casos Clínicos</h2>
+    <select id="seletorCaso" onchange="carregarCaso(this.value)">
+        </select>
 </div>
 
-<div id="app_content">
-    <select id="seletorCaso" onchange="reiniciarApp()"></select>
-    <div id="container_detalhes_caso"></div>
+<div class="container">
+    
+    <div class="painel-paciente" id="painel_paciente">
+        <h3>📄 Prontuário do Paciente</h3>
+        <strong>Identificação:</strong> <span id="txt_paciente"></span><br><br>
+        <strong>História da Moléstia:</strong> <span id="txt_historia"></span><br><br>
+        <strong>Antecedentes:</strong> <span id="txt_antecedentes"></span><br><br>
+        <strong>Exame Físico:</strong> <span id="txt_exame_fisico"></span>
+    </div>
 
     <div id="step1" class="step active">
-        <h3>Anamnese</h3>
-        <p id="txt_paciente"></p><p id="txt_historia"></p><p id="txt_exame_fisico"></p>
-        <p id="lbl_pergunta1"></p>
-        <textarea id="resposta_1"></textarea>
-        <button onclick="verificar(1)">Verificar</button>
-        <div id="gabarito1" style="display:none;">
-            <strong id="gab_titulo1"></strong><p id="gab_justificativa1"></p>
-            <button id="btn_next1" onclick="nextStep(1)">Próxima</button>
+        <h2 id="titulo_etapa1">Etapa 1: Hipótese Diagnóstica</h2>
+        
+        <div class="form-group">
+            <label id="lbl_pergunta1"></label>
+            <textarea id="resposta_1" placeholder="Sua resposta estruturada..."></textarea>
         </div>
+        
+        <button class="btn-verificar" onclick="verificar(1)">Verificar Resposta</button>
+        
+        <div id="gabarito1" class="gabarito-box">
+            <h4>Padrão Ouro (Gabarito):</h4>
+            <p><strong id="gab_titulo1"></strong></p>
+            <p><strong style="color:#333">Justificativa:</strong> <span id="gab_justificativa1"></span></p>
+        </div>
+        
+        <button id="btn_next1" class="btn-avancar" onclick="nextStep(1)">Avançar Etapa</button>
     </div>
 
     <div id="step2" class="step">
-        <h3>Investigação</h3>
-        <p id="txt_contexto2"></p>
-        <p id="lbl_pergunta2"></p>
-        <textarea id="resposta_2"></textarea>
-        <button onclick="verificar(2)">Verificar</button>
-        <div id="gabarito2" style="display:none;">
-            <strong id="gab_titulo2"></strong><p id="gab_justificativa2"></p>
-            <button id="btn_next2" onclick="nextStep(2)">Próxima</button>
+        <h2 id="titulo_etapa2">Etapa 2: Investigação Complementar</h2>
+        <div class="case-text" id="txt_contexto2"></div>
+        
+        <div class="form-group">
+            <label id="lbl_pergunta2"></label>
+            <textarea id="resposta_2" placeholder="Descreva os exames..."></textarea>
         </div>
+
+        <button class="btn-verificar" onclick="verificar(2)">Verificar Resposta</button>
+
+        <div id="gabarito2" class="gabarito-box">
+            <h4>Padrão Ouro (Gabarito):</h4>
+            <p><strong id="gab_titulo2"></strong></p>
+            <p><strong style="color:#333">Justificativa:</strong> <span id="gab_justificativa2"></span></p>
+        </div>
+
+        <button id="btn_next2" class="btn-avancar" onclick="nextStep(2)">Avançar Etapa</button>
     </div>
 
     <div id="step3" class="step">
-        <h3>Conduta</h3>
-        <p id="txt_laudo_exame"></p>
+        <h2 id="titulo_etapa3">Etapa 3: Conduta Especializada</h2>
+        
+        <div class="case-text">
+            <strong>Laudo do Exame:</strong> <span id="txt_laudo_exame"></span>
+        </div>
+        
         <div id="bloco_patologia" class="dinamico">
-            <p>Solicitação de Exame:</p>
-            <pre id="gab_solicitacao"></pre>
+            <h3>Redija a Solicitação de Exame Anatomopatológico:</h3>
+            <p style="color: #666; font-size: 0.9em; margin-top: -10px;">Dica: Um formulário completo deve conter os dados de identificação, o material coletado e os informes clínicos relevantes.</p>
+            <div class="form-group">
+                <textarea id="solicitacao_unica" placeholder="Escreva aqui a sua solicitação completa..."></textarea>
+            </div>
         </div>
+
         <div id="bloco_funcional" class="dinamico">
-            <p id="lbl_pergunta3_alternativa"></p>
-            <textarea id="resposta_3_alternativa"></textarea>
+            <div class="form-group">
+                <label id="lbl_pergunta3_alternativa"></label>
+                <textarea id="resposta_3_alternativa" placeholder="Sua análise estruturada..."></textarea>
+            </div>
         </div>
-        <button onclick="verificar(3)">Verificar</button>
-        <div id="gabarito3" style="display:none;">
-            <strong id="gab_titulo3"></strong><p id="gab_justificativa3"></p>
-            <button id="btn_next3" onclick="nextStep(3)">Próxima</button>
+
+        <button class="btn-verificar" onclick="verificar(3)">Verificar Etapa</button>
+
+        <div id="gabarito3" class="gabarito-box">
+            <h4>Padrão Ouro (Gabarito):</h4>
+            
+            <div id="gab_patologia" class="dinamico">
+                <p><strong>Exemplo de Solicitação Ideal:</strong><br> <br><span id="gab_solicitacao" style="white-space: pre-wrap;"></span></p>
+            </div>
+            
+            <div id="gab_funcional" class="dinamico">
+                <p><strong id="gab_titulo3"></strong></p>
+                <p><strong style="color:#333">Justificativa:</strong> <span id="gab_justificativa3"></span></p>
+            </div>
         </div>
+
+        <button id="btn_next3" class="btn-avancar" onclick="nextStep(3)">Avançar Etapa</button>
     </div>
 
     <div id="step4" class="step">
-        <h3>Diagnóstico Final</h3>
-        <div id="bloco_laudo_patologico" class="dinamico">
-            <p><strong>Macroscopia:</strong> <span id="txt_macroscopia"></span></p>
-            <p><strong>Microscopia:</strong> <span id="txt_microscopia"></span></p>
+        <h2 id="titulo_etapa4">Etapa 4: Diagnóstico Final</h2>
+        
+        <div class="case-text">
+            <div id="bloco_laudo_patologico" class="dinamico">
+                <strong>Laudo Anatomopatológico:</strong><br><br>
+                <strong>Macroscopia:</strong> <span id="txt_macroscopia"></span><br><br>
+                <strong>Microscopia:</strong> <span id="txt_microscopia"></span>
+            </div>
+            <div id="bloco_conclusao_clinica" class="dinamico">
+                <strong>Análise Clínica e Funcional concluída com sucesso.</strong>
+            </div>
         </div>
-        <p id="lbl_pergunta4"></p>
-        <textarea id="resposta_4"></textarea>
-        <button onclick="verificar(4)">Verificar</button>
-        <div id="gabarito4" style="display:none;">
-            <strong id="gab_titulo4"></strong>
+        
+        <div class="form-group">
+            <label id="lbl_pergunta4"></label>
+            <input type="text" id="resposta_4" placeholder="Diagnóstico definitivo">
         </div>
+
+        <button class="btn-verificar" onclick="verificar(4)">Verificar Diagnóstico</button>
+
+        <div id="gabarito4" class="gabarito-box">
+            <h4>Padrão Ouro (Gabarito):</h4>
+            <p><strong id="gab_titulo4"></strong></p>
+        </div>
+
+        <button id="btn_next4" class="btn-avancar" onclick="reiniciarApp()" style="background-color: var(--primary-color);">Finalizar Caso</button>
     </div>
+
 </div>
 
 <script src="app.js"></script>
+
 </body>
 </html>
