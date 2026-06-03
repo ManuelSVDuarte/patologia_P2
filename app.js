@@ -224,6 +224,29 @@ const casosBD = [
 // ==========================================
 let casoAtual = {};
 
+const mensagens = [
+    "Lembre-se: o diagnóstico não é adivinhação, é investigação! 🔍",
+    "A macroscopia é a arte de ver o que ninguém notou. 👁️",
+    "Prepare seu microscópio virtual... os granulomas estão à espreita! 🧫",
+    "O segredo está no padrão arquitetural. O que diz a lâmina hoje? 🧬",
+    "Mais vale uma biópsia bem feita do que mil suposições. 💉"
+];
+
+function iniciarSimulador() {
+    const overlay = document.getElementById('tela_abertura');
+    overlay.style.opacity = '0';
+    setTimeout(() => {
+        overlay.style.display = 'none';
+        document.getElementById('app_content').style.display = 'block';
+    }, 800);
+}
+
+// Sorteia uma mensagem ao carregar
+window.onload = function() {
+    document.getElementById('mensagem_dinamica').innerText = mensagens[Math.floor(Math.random() * mensagens.length)];
+    // ... restante da sua função onload existente ...
+}
+
 window.onload = function() {
     const seletor = document.getElementById('seletorCaso');
     
