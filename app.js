@@ -229,97 +229,78 @@ document.addEventListener('DOMContentLoaded', function() {
     const listaUL = document.getElementById('lista_casos_abertura');
     const msg = document.getElementById('mensagem_dinamica');
 
-    // Preenche menu e lista inicial
+    // Preenche menu e lista inicial clicável
     if (seletor && listaUL) {
         casosBD.forEach((caso, index) => {
-            // Menu dropdown
             const option = document.createElement('option');
             option.value = index;
-            option.text = "Caso Clínico " + (index + 1);
+            option.text = "Caso " + (index + 1) + ": " + caso.nome_patologia;
             seletor.appendChild(option);
             
-            // Lista clicável
             const li = document.createElement('li');
             li.style.cursor = 'pointer';
             li.style.padding = '10px';
             li.style.margin = '5px 0';
-            li.style.background = 'rgba(255,255,255,0.05)';
-            li.style.borderRadius = '5px';
-            li.innerHTML = `<strong>${caso.nome_patologia}</strong> <span style="font-size:0.8em; opacity:0.7;">(Clique para ver resumo)</span>`;
+            li.style.background = 'rgba(255,255,255,0.1)';
+            li.innerHTML = `<strong>${caso.nome_patologia}</strong>`;
             
-            li.onclick = () => {
-                alert(`Resumo do ${caso.nome_patologia}:\n\nHistória: ${caso.etapa1.historia.substring(0, 150)}...\n\nClique em 'Entrar no Laboratório' para resolver este caso.`);
-            };
+            li.onclick = () => mostrarResumoCompleto(caso);
             listaUL.appendChild(li);
         });
     }
 
     if (msg) {
-        const mensagens = [
-            "Lembre-se: o diagnóstico não é adivinhação, é investigação! 🔍",
-            "A macroscopia é a arte de ver o que ninguém notou. 👁️",
-            "Prepare seu microscópio virtual... os granulomas estão à espreita! 🧫"
-        ];
-        msg.innerText = mensagens[Math.floor(Math.random() * mensagens.length)];
+        const frases = ["Diagnosticar é investigar! 🔍", "A macroscopia é a arte de ver. 👁️", "O segredo está no padrão arquitetural. 🧬"];
+        msg.innerText = frases[Math.floor(Math.random() * frases.length)];
     }
-
-    carregarCaso(0);
 });
 
-// FUNÇÕES GLOBAIS
+// Exibe detalhes antes de entrar no modo simulado
+function mostrarResumoCompleto(caso) {
+    const container = document.getElementById('container_detalhes_caso');
+    let html = `
+        <div style="background:#f9f9f9; padding:15px; border-radius:8px; border:1px solid #ccc;">
+            <h2>${caso.nome_patologia}</h2>
+            <p><strong>História:</strong> ${caso.etapa1.historia}</p>
+        </div>
+    `;
+    if (caso.tipo_exame === 'patologia') {
+        html += `<div style="margin-top:10px;">
+                    <strong>Solicitação de Histopatológico:</strong>
+                    <pre style="background:#eee; padding:10px;">${caso.etapa3.gabarito_solicitacao}</pre>
+                 </div>`;
+    }
+    container.innerHTML = html;
+}
+
+// FUNÇÕES DE NAVEGAÇÃO DO SIMULADOR
 function carregarCaso(index) {
     casoAtual = casosBD[index];
     resetarInterface();
 
     document.getElementById('txt_paciente').innerText = casoAtual.etapa1.paciente;
     document.getElementById('txt_historia').innerText = casoAtual.etapa1.historia;
-    document.getElementById('txt_antecedentes').innerText = casoAtual.etapa1.antecedentes;
     document.getElementById('txt_exame_fisico').innerText = casoAtual.etapa1.exame_fisico;
-
     document.getElementById('lbl_pergunta1').innerText = casoAtual.etapa1.pergunta;
-    document.getElementById('gab_titulo1').innerText = casoAtual.etapa1.gabarito_titulo;
-    document.getElementById('gab_justificativa1').innerText = casoAtual.etapa1.gabarito_justificativa;
 
-    document.getElementById('txt_contexto2').innerText = casoAtual.etapa2.contexto;
-    document.getElementById('lbl_pergunta2').innerText = casoAtual.etapa2.pergunta;
-    document.getElementById('gab_titulo2').innerText = casoAtual.etapa2.gabarito_titulo;
-    document.getElementById('gab_justificativa2').innerText = casoAtual.etapa2.gabarito_justificativa;
-
-    document.getElementById('txt_laudo_exame').innerText = casoAtual.etapa3.laudo_exame;
-
+    // Lógica para alternar entre Patologia (Biópsia) e Funcional (Pneumonia)
     const blocoPatologia = document.getElementById('bloco_patologia');
     const blocoFuncional = document.getElementById('bloco_funcional');
-    const gabPatologia = document.getElementById('gab_patologia');
-    const gabFuncional = document.getElementById('gab_funcional');
     
     if (casoAtual.tipo_exame === 'patologia') {
         blocoPatologia.style.display = 'block';
         blocoFuncional.style.display = 'none';
-        gabPatologia.style.display = 'block';
-        gabFuncional.style.display = 'none';
-        
         document.getElementById('gab_solicitacao').innerText = casoAtual.etapa3.gabarito_solicitacao;
-        document.getElementById('txt_macroscopia').innerText = casoAtual.etapa4.macroscopia;
-        document.getElementById('txt_microscopia').innerText = casoAtual.etapa4.microscopia;
     } else {
         blocoFuncional.style.display = 'block';
         blocoPatologia.style.display = 'none';
-        gabFuncional.style.display = 'block';
-        gabPatologia.style.display = 'none';
-
-        document.getElementById('lbl_pergunta3_alternativa').innerText = casoAtual.etapa3.pergunta_alternativa;
-        document.getElementById('gab_titulo3').innerText = casoAtual.etapa3.gabarito_titulo;
-        document.getElementById('gab_justificativa3').innerText = casoAtual.etapa3.gabarito_justificativa;
     }
-
-    document.getElementById('lbl_pergunta4').innerText = casoAtual.etapa4.pergunta;
-    document.getElementById('gab_titulo4').innerText = casoAtual.etapa4.gabarito_titulo;
 }
 
 function iniciarSimulador() {
-    const overlay = document.getElementById('tela_abertura');
-    overlay.style.opacity = '0';
-    setTimeout(() => { overlay.style.display = 'none'; document.getElementById('app_content').style.display = 'block'; }, 800);
+    document.getElementById('tela_abertura').style.display = 'none';
+    document.getElementById('app_content').style.display = 'block';
+    carregarCaso(document.getElementById('seletorCaso').value || 0);
 }
 
 function verificar(step) {
@@ -339,8 +320,4 @@ function reiniciarApp() {
 function resetarInterface() {
     document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
     document.getElementById('step1').classList.add('active');
-    for(let i=1; i<=4; i++) {
-        document.getElementById('gabarito' + i).style.display = 'none';
-        if(document.getElementById('btn_next' + i)) document.getElementById('btn_next' + i).style.display = 'none';
-    }
 }
