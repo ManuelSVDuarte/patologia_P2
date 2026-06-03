@@ -257,6 +257,16 @@ document.addEventListener('DOMContentLoaded', function() {
 // FUNÇÃO MESTRE DE CARREGAMENTO (Garante que tudo apareça)
 function carregarCaso(index) {
     casoAtual = casosBD[index];
+    
+    // --- ESTA É A CORREÇÃO ---
+    // Força a limpeza de todos os gabaritos visíveis
+    for(let i = 1; i <= 4; i++) {
+        const gab = document.getElementById('gabarito' + i);
+        const btnNext = document.getElementById('btn_next' + i);
+        if(gab) gab.style.display = 'none';
+        if(btnNext) btnNext.style.display = 'none';
+    }
+    // Garante que o sistema volte para o primeiro passo
     resetarInterface();
 
     // 1. Prontuário
