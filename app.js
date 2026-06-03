@@ -245,6 +245,13 @@ function iniciarSimulador() {
 window.onload = function() {
     document.getElementById('mensagem_dinamica').innerText = mensagens[Math.floor(Math.random() * mensagens.length)];
     // ... restante da sua função onload existente ...
+    // Preenche a lista na tela de abertura
+    const listaUL = document.getElementById('lista_casos_abertura');
+    casosBD.forEach((caso, index) => {
+        const li = document.createElement('li');
+        li.innerHTML = `<strong>Caso ${index + 1}:</strong> ${caso.nome_patologia}`;
+        listaUL.appendChild(li);
+    });
 }
 
 window.onload = function() {
