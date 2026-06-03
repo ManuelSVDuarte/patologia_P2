@@ -3,66 +3,6 @@
 // ==========================================
 const casosBD = [
     {
-        id: "scc_esofago",
-        nome_patologia: "Carcinoma de Células Escamosas do Esôfago",
-        tipo_exame: "patologia", 
-        etapa1: {
-            paciente: "MTR, masculino, 62 anos, pedreiro aposentado.",
-            historia: "Chega ao ambulatório com queixa de 'entalo crônico e dor no peito'. Relata dificuldade progressiva para engolir (disfagia) há cinco meses. Inicialmente engasgava com sólidos, mas agora o entalo ocorre até com líquidos, associado à dor retroesternal. Perda de peso estimada em 15 kg no semestre.",
-            antecedentes: "Tabagismo e alcoolismo diários desde os 16 anos.",
-            exame_fisico: "Caquético, hipocorado (2+/4+), anictérico e afebril.",
-            pergunta: "1. Qual a sua principal hipótese diagnóstica estruturada?",
-            gabarito_titulo: "Carcinoma de Células Escamosas do Esôfago.",
-            gabarito_justificativa: "O paciente apresenta todos os fatores de risco epidemiológicos clássicos (homem, idoso, tabagismo e alcoolismo) alinhados à apresentação clínica típica de disfagia progressiva e perda de peso."
-        },
-        etapa2: {
-            contexto: "Sua hipótese clínica de doença estrutural esofágica obstrutiva foi estabelecida.",
-            pergunta: "2. Quais exames complementares você solicita para confirmar a suspeita?",
-            gabarito_titulo: "Endoscopia Digestiva Alta (EDA) com biópsia.",
-            gabarito_justificativa: "É o padrão-ouro para visualizar o estreitamento luminal e a lesão exofítica, além de permitir a coleta de tecido para análise."
-        },
-        etapa3: {
-            laudo_exame: "Presença de volumosa lesão exofítica no terço médio do esôfago, friável e com ulcerações. Causa grave estreitamento luminal, impedindo a progressão do aparelho.",
-            gabarito_solicitacao: "Identificação: MTR, 62 anos, Sexo Masculino.\n\nMaterial / Procedimento: Fragmentos de lesão esofágica (terço médio) / Biópsia Endoscópica.\n\nInformes Clínicos: Paciente idoso com longo histórico de tabagismo e alcoolismo, apresentando perda de peso e disfagia progressiva. A EDA revelou lesão exofítica ulcerada e estreitamento luminal. Suspeita de Carcinoma de Células Escamosas."
-        },
-        etapa4: {
-            macroscopia: "5 fragmentos irregulares, pardacentos e firmes. (B1 - 5F - TI).",
-            microscopia: "Neoplasia epitelial maligna. Proliferação de células escamosas atípicas e mitoses atípicas. Invasão do estroma conjuntivo subjacente.",
-            pergunta: "4. Com base na integração clínico-patológica, qual o diagnóstico definitivo?",
-            gabarito_titulo: "Carcinoma de Células Escamosas do Esôfago."
-        }
-    },
-    {
-        id: "dpoc_01",
-        nome_patologia: "Doença Pulmonar Obstrutiva Crônica (DPOC)",
-        tipo_exame: "funcional", 
-        etapa1: {
-            paciente: "RFS, masculino, 62 anos, motorista aposentado.",
-            historia: "Dispneia progressiva limitante e tosse crônica com expectoração matinal há vários anos.",
-            antecedentes: "Tabagismo ativo com alta carga tabágica (44 anos-maço).",
-            exame_fisico: "Uso de musculatura acessória, murmúrio vesicular difusamente reduzido, tempo expiratório prolongado e sibilância esparsa.",
-            pergunta: "1. Qual a principal suspeita clínica e o fator de risco determinante?",
-            gabarito_titulo: "Doença Pulmonar Obstrutiva Crônica (DPOC).",
-            gabarito_justificativa: "Quadro clássico de dispneia e tosse em paciente acima de 40 anos com alta carga tabágica associada."
-        },
-        etapa2: {
-            contexto: "A suspeita de síndrome obstrutiva crônica necessita de comprovação funcional e de imagem.",
-            pergunta: "2. Quais exames você solicita para estadiamento e confirmação diagnóstica?",
-            gabarito_titulo: "Espirometria e Radiografia de Tórax.",
-            gabarito_justificativa: "A espirometria é mandatória para confirmar a obstrução do fluxo aéreo, e a radiografia avalia os sinais de hiperinsuflação."
-        },
-        etapa3: {
-            laudo_exame: "A espirometria confirmou distúrbio ventilatório com obstrução irreversível. A radiografia de tórax evidenciou retificação das cúpulas diafragmáticas e hiperinsuflação.",
-            pergunta_alternativa: "3. Correlacione o achado da espirometria com a fisiopatologia da doença.",
-            gabarito_titulo: "Obstrução fixa e irreversível da via aérea.",
-            gabarito_justificativa: "Diferente da asma, a obstrução irreversível na espirometria reflete o dano estrutural crônico: o remodelamento brônquico e a destruição alveolar (enfisema)."
-        },
-        etapa4: {
-            pergunta: "4. Com base na clínica e na prova de função pulmonar, qual o diagnóstico final?",
-            gabarito_titulo: "DPOC (Padrão obstrutivo irreversível)."
-        }
-    },
-    {
         id: "adeno_pulmonar_01",
         nome_patologia: "Adenocarcinoma Pulmonar",
         tipo_exame: "patologia",
@@ -91,7 +31,68 @@ const casosBD = [
             pergunta: "4. Com as informações epidemiológicas, clínicas, radiológicas e a descrição microscópica fornecida, aponte o diagnóstico definitivo.",
             gabarito_titulo: "Adenocarcinoma Pulmonar."
         }
+    },
+    {
+        id: "scc_pulmonar_01",
+        nome_patologia: "Carcinoma de Células Escamosas Pulmonar",
+        tipo_exame: "patologia",
+        etapa1: {
+            paciente: "JBS, do sexo masculino, 58 anos, pardo, pedreiro autônomo, casado, 3 filhos.",
+            historia: "Chega à emergência com queixa de 'dor no peito e tosse com sangue'. Relata que há cerca de três meses a dor torácica se iniciou, associada à piora de uma 'tosse de fumante' crônica que se tornou produtiva e apresenta hemoptise. Queixa-se de sibilância ao esforço.",
+            antecedentes: "Histórico de tabagismo ativo intenso e de longa data (40 anos-maço). Relata fraqueza e dores difusas no corpo.",
+            exame_fisico: "PA = 140x90 mmHg, afebril, levemente hipocorado, taquipneico. Ausculta pulmonar revela murmúrio vesicular abolido no hemitórax direito e sibilância localizada.",
+            pergunta: "1. Analise o texto e indique as principais hipóteses diagnósticas considerando o perfil epidemiológico do paciente. Justifique sua resposta.",
+            gabarito_titulo: "Carcinoma de Células Escamosas Pulmonar.",
+            gabarito_justificativa: "Paciente homem, acima de 50 anos, com carga tabágica muito elevada, apresentando sintomas centrais (hemoptise, sibilância e dor torácica) que sugerem neoplasia pulmonar de localização central[cite: 5]."
+        },
+        etapa2: {
+            contexto: "Durante a internação, a equipe identifica hipercalcemia e uma massa hilar direita com atelectasia.",
+            pergunta: "2. Explique a relação do achado de hipercalcemia com a hipótese diagnóstica, citando o mecanismo paraneoplásico associado.",
+            gabarito_titulo: "Síndrome Paraneoplásica (Produção de PTHrP).",
+            gabarito_justificativa: "O Carcinoma de Células Escamosas é frequentemente associado à produção ectópica de Proteína Relacionada ao Hormônio Paratireoidiano (PTHrP), que causa hipercalcemia[cite: 5]."
+        },
+        etapa3: {
+            laudo_exame: "Massa sólida, irregular e cavitada localizada na região do hilo pulmonar direito (tumor central), causando obstrução brônquica parcial e extensa área de atelectasia no lobo médio e inferior ipsilateral. Foi realizada broncoscopia para biópsia direta da massa.",
+            gabarito_solicitacao: "PEDIDO DE EXAME ANATOMOPATOLÓGICO\n\nIdentificação do Paciente: Nome: J. B. S. | Sexo: Masculino | Idade: 58 anos\nProcedência: Serviço de Pneumologia / Broncoscopia\n\nNatureza do Material:\nQuatro (4) fragmentos irregulares de tecido obtidos por biópsia endobrônquica via broncoscopia.\n\nHistória Clínica e Exame Físico:\nPaciente tabagista intenso (40 anos-maço), pedreiro, apresenta dor torácica, tosse produtiva com hemoptise e sibilância há 3 meses. Evoluiu com fraqueza e dores difusas. Exame físico: murmúrio vesicular abolido no hemitórax direito e sibilância localizada.\n\nAchados Laboratoriais e Radiológicos:\nLaboratório: Hipercalcemia acentuada.\nTC de Tórax: Massa sólida, irregular e cavitada em região hilar direita, provocando obstrução brônquica parcial e extensa atelectasia em lobo médio e inferior ipsilateral.\n\nHipótese Diagnóstica:\nNeoplasia maligna de pulmão (suspeita de Carcinoma de Células Escamosas).\n\nSolicitação:\nSolicito exame histopatológico da amostra coletada para diagnóstico definitivo.\n\nData: ___/___/____ | Carimbo e Assinatura do Médico Assistente: _____________________"
+        },
+        etapa4: {
+            macroscopia: "Recebidos quatro fragmentos irregulares de tecido firme, de coloração brancacenta e áreas pardacentas, medindo em conjunto 0,9 x 0,6 x 0,4 cm. (B1 - 4F - TI).",
+            microscopia: "Neoplasia epitelial maligna de padrão infiltrativo, constituída pela proliferação de células escamosas atípicas. As células tumorais exibem abundante citoplasma, pleomorfismo nuclear e nítidas pontes intercelulares. Observa-se a formação de blocos sólidos com áreas de queratinização central concêntrica, formando as chamadas 'pérolas córneas', além de extensa invasão das estruturas do estroma fibrovascular adjacente[cite: 5].",
+            pergunta: "4. Com as informações apresentadas, aponte o diagnóstico definitivo e cite os achados microscópicos que são patognomônicos.",
+            gabarito_titulo: "Carcinoma de Células Escamosas Pulmonar (Achados patognomônicos: pontes intercelulares e pérolas córneas[cite: 5])."
+        }
+    },
+    {
+        id: "adeno_gastrico_01",
+        nome_patologia: "Adenocarcinoma Gástrico",
+        tipo_exame: "patologia",
+        etapa1: {
+            paciente: "JMC, do sexo masculino, 68 anos, branco, comerciante aposentado.",
+            historia: "Procura o ambulatório com queixa de dor forte na boca do estômago e fraqueza. Relata dor epigástrica diária há sete meses, episódios frequentes de náuseas e vômitos pós-prandiais, e perda de peso não intencional de 14 kg no semestre.",
+            antecedentes: "Histórico antigo e não tratado adequadamente de infecção por H. pylori.",
+            exame_fisico: "Paciente emagrecido, hipocorado, anictérico, com dor à palpação profunda na região epigástrica, sem massas palpáveis evidentes.",
+            pergunta: "1. Analise a vinheta clínica e indique como o sexo do paciente e o antecedente de infecção crônica por H. pylori funcionam como fatores de risco clássicos para esta doença.",
+            gabarito_titulo: "Adenocarcinoma Gástrico.",
+            gabarito_justificativa: "O adenocarcinoma gástrico é mais prevalente em homens (relação 2H:1M) e a infecção crônica por H. pylori é um dos principais fatores etiológicos descritos, podendo evoluir para gastrite, atrofia, metaplasia e, eventualmente, neoplasia."
+        },
+        etapa2: {
+            contexto: "Devido aos sinais de alarme, foi realizada Endoscopia Digestiva Alta (EDA).",
+            pergunta: "2. Relacione a queixa clínica de náuseas e vômitos com os achados endoscópicos de lesão ulcerada irregular e espessamento da parede do estômago.",
+            gabarito_titulo: "Obstrução e perda da distensibilidade gástrica.",
+            gabarito_justificativa: "A lesão ulcerada irregular e o espessamento da parede no antro gástrico causam perda da distensibilidade local e rigidez, dificultando a passagem do alimento e resultando em náuseas, vômitos pós-prandiais e saciedade precoce."
+        },
+        etapa3: {
+            laudo_exame: "Volumosa lesão ulcerada irregular no antro gástrico, com bordas elevadas e fundo recoberto por fibrina. A lesão promove um nítido espessamento da parede gástrica adjacente, com perda da distensibilidade local e deformidade da câmara gástrica.",
+            gabarito_solicitacao: "PEDIDO DE EXAME ANATOMOPATOLÓGICO\n\nIdentificação do Paciente: Nome: J. M. C.  |  Sexo: Masculino  |  Idade: 68 anos\nProcedência: Ambulatório de Gastroenterologia\n\nNatureza do Material:\nOito (8) fragmentos irregulares de tecido gástrico (região do antro), obtidos por biópsia via Endoscopia Digestiva Alta (EDA).\n\nHistória Clínica e Exame Físico:\nPaciente de 68 anos com dor epigástrica crônica há 7 meses, náuseas, vômitos pós-prandiais e perda ponderal de 14 kg. Histórico de infecção crônica por Helicobacter pylori não tratada adequadamente. Ao exame: emagrecido, com dor à palpação profunda em região epigástrica.\n\nAchados Endoscópicos:\nVolumosa lesão ulcerada irregular no antro gástrico, com bordas elevadas e fundo fibrinopurulento. Observa-se espessamento da parede e deformidade da câmara gástrica, sugerindo processo infiltrativo.\n\nHipótese Diagnóstica:\nNeoplasia gástrica (Adenocarcinoma).\n\nSolicitação:\nSolicito avaliação histopatológica para confirmação diagnóstica. Por favor, correlacionar os achados com a história de infecção prévia por H. pylori e avaliar a presença de células em anel de sinete.\n\nData: ___/___/____  |  Carimbo e Assinatura do Médico Assistente: _____________________"
+        },
+        etapa4: {
+            macroscopia: "Recebidos oito fragmentos irregulares de tecido, de coloração pardacenta e consistência firme, medindo o maior 0,5 cm e o menor 0,2 cm. (B1-B2 - 8F - TI).",
+            microscopia: "Neoplasia epitelial maligna de caráter infiltrativo. Predomínio de glândulas atípicas com pleomorfismo nuclear. Presença de células neoplásicas isoladas com núcleo perifericamente rechaçado por vacúolo de mucina (células em anel de sinete). Extensa invasão da lâmina própria e submucosa.",
+            pergunta: "4. Com base na visualização microscópica de 'glândulas atípicas, células em anel de sinete e invasão', aponte o diagnóstico morfológico final.",
+            gabarito_titulo: "Adenocarcinoma Gástrico (com padrão de células em anel de sinete)."
+        }
     }
+    
     
 ];
 
