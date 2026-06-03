@@ -91,6 +91,128 @@ const casosBD = [
             pergunta: "4. Com base na visualização microscópica de 'glândulas atípicas, células em anel de sinete e invasão', aponte o diagnóstico morfológico final.",
             gabarito_titulo: "Adenocarcinoma Gástrico (com padrão de células em anel de sinete)."
         }
+    },
+    {
+        id: "gastrite_hpylori_01",
+        nome_patologia: "Gastrite por H. pylori",
+        tipo_exame: "patologia",
+        etapa1: {
+            paciente: "MVS, do sexo feminino, 45 anos, parda, costureira.",
+            historia: "Procura a UBS com queixa de queimação no estômago e digestão lenta. Relata quadro crônico de dispepsia, dor epigástrica em queimação e frequentes náuseas, que pioram com café e condimentos. Uso de chás e antiácidos caseiros com alívio apenas temporário.",
+            antecedentes: "Nega outras comorbidades; histórico de automedicação crônica.",
+            exame_fisico: "Paciente afebril, normocorada, anictérica, abdome flácido, com dor à palpação profunda na região epigástrica.",
+            pergunta: "1. Analise a vinheta clínica e indique como a origem da paciente e o perfil socioeconômico se alinham à epidemiologia desta infecção.",
+            gabarito_titulo: "Gastrite por H. pylori.",
+            gabarito_justificativa: "A infecção por H. pylori é extremamente comum em países em desenvolvimento e comunidades com menor índice socioeconômico, onde as condições de saneamento básico facilitam a transmissão do patógeno, acometendo mais da metade da população mundial."
+        },
+        etapa2: {
+            contexto: "Devido à refratariedade dos sintomas, foi solicitada uma Endoscopia Digestiva Alta (EDA).",
+            pergunta: "2. Correlacione a clínica crônica da paciente com os achados de agressão estrutural vistos na endoscopia.",
+            gabarito_titulo: "Gastrite antral crônica.",
+            gabarito_justificativa: "A hiperemia, espessamento da mucosa e erosões antrais são a tradução morfológica do processo inflamatório contínuo provocado pela bactéria, resultando no quadro persistente de dispepsia e dor epigástrica."
+        },
+        etapa3: {
+            laudo_exame: "Estômago com mucosa difusamente hiperemiada e espessada, predominantemente no antro. Presença de irregularidade de superfície e múltiplas erosões rasas com exsudato.",
+            gabarito_solicitacao: "PEDIDO DE EXAME ANATOMOPATOLÓGICO\n\nIdentificação do Paciente: Nome: M. V. S.  |  Sexo: Feminino  |  Idade: 45 anos\nProcedência: Unidade Básica de Saúde\n\nNatureza do Material:\nQuatro (4) fragmentos da mucosa antral e do corpo gástrico, obtidos por biópsia via Endoscopia Digestiva Alta (EDA).\n\nHistória Clínica:\nPaciente feminina, 45 anos, com quadro crônico e arrastado de dispepsia, dor epigástrica em queimação e náuseas, refratárias ao uso de antiácidos e automedicação.\n\nAchados Endoscópicos:\nEstômago com mucosa difusamente hiperemiada e espessada, predominantemente no antro. Presença de irregularidade de superfície e múltiplas erosões rasas com exsudato.\n\nHipótese Diagnóstica:\nGastrite crônica ativa; investigar infecção por Helicobacter pylori.\n\nSolicitação:\nSolicito exame histopatológico para confirmação diagnóstica. Por favor, realizar pesquisa de micro-organismos (coloração especial) para confirmação de H. pylori e avaliar a presença de metaplasia intestinal ou atividade inflamatória.\n\nData: ___/___/____  |  Carimbo e Assinatura do Médico Assistente: _____________________"
+        },
+        etapa4: {
+            macroscopia: "Recebidos quatro fragmentos diminutos de tecido de coloração pardo-clara, medindo em conjunto 0,4 x 0,2 cm. (B1 - 4F - TI).",
+            microscopia: "Processo inflamatório crônico em atividade com denso infiltrado linfoplasmocitário e neutrófilos no epitélio foveolar. Metaplasia intestinal. Presença de numerosos bacilos espiralados na camada de muco superficial.",
+            pergunta: "4. Aponte o diagnóstico etiológico e histopatológico definitivo da paciente.",
+            gabarito_titulo: "Gastrite crônica ativa por H. pylori com metaplasia intestinal."
+        }
+    },
+    {
+        id: "tb_pulmonar_01",
+        nome_patologia: "Tuberculose Pulmonar",
+        tipo_exame: "patologia", // Mantém a estrutura de solicitação, mas focada na exclusão de malignidade
+        etapa1: {
+            paciente: "MJS, do sexo masculino, 45 anos, pardo, ajudante de pedreiro.",
+            historia: "Tosse crônica há 5 meses (inicialmente seca, agora produtiva e hemoptoica), sudorese noturna intensa e perda de peso acentuada. Relata convívio em comunidade com alta densidade populacional.",
+            antecedentes: "Nega tabagismo. Uso esporádico de álcool.",
+            exame_fisico: "PA = 110x70 mmHg, febrícula (37,6ºC), taquicárdico, emagrecido e descorado. Ausculta com murmúrio vesicular diminuído em ápice pulmonar direito, com estertores finos.",
+            pergunta: "1. Analise o perfil socioeconômico e a clínica, correlacionando-os com o risco epidemiológico para a principal hipótese.",
+            gabarito_titulo: "Tuberculose Pulmonar.",
+            gabarito_justificativa: "A pobreza e a aglomeração urbana facilitam a disseminação do bacilo. O quadro clínico clássico de tosse >3 semanas, sudorese noturna e emagrecimento (síndrome consuntiva) em área endêmica aponta para a TB."
+        },
+        etapa2: {
+            contexto: "A equipe solicita radiografia de tórax e teste tuberculínico (PPD).",
+            pergunta: "2. Cite os três principais achados clínicos e radiológicos clássicos para esta patologia.",
+            gabarito_titulo: "Sintomas constitucionais e imagem apical.",
+            gabarito_justificativa: "1. Tosse produtiva/hemoptoica persistente; 2. Emagrecimento e sudorese noturna; 3. Consolidação e cavitação em ápice pulmonar na radiografia."
+        },
+        etapa3: {
+            laudo_exame: "A Baciloscopia de escarro confirmou a presença de BAAR (Bacilos Álcool-Ácido Resistentes). Devido à extensa cavitação e necessidade de descartar lesão neoplásica mascarada, optou-se pela biópsia transbrônquica.",
+            gabarito_solicitacao: "PEDIDO DE EXAME ANATOMOPATOLÓGICO\n\nIdentificação do Paciente: Nome: M. J. S. | Sexo: Masculino | Idade: 45 anos\nProcedência: Unidade Básica de Saúde / Pneumologia\n\nNatureza do Material:\nFragmentos teciduais obtidos por biópsia transbrônquica da borda de lesão cavitária apical (Pulmão Direito).\n\nHistória Clínica:\nPaciente com tosse produtiva/hemoptoica há 5 meses, sudorese noturna e perda ponderal acentuada. PPD fortemente positivo. Baciloscopia de escarro positiva para BAAR.\n\nAchados Radiológicos:\nRadiografia de tórax e TC evidenciando consolidação e extensa cavitação em ápice pulmonar direito.\n\nHipótese Diagnóstica:\nTuberculose pulmonar cavitária (excluir lesão neoplásica secundária).\n\nSolicitação:\nSolicito avaliação histopatológica da borda da cavidade para confirmar padrão inflamatório granulomatoso e descartar malignidade (coinfecção ou neoplasia associada).\n\nData: ___/___/____ | Carimbo e Assinatura do Médico Assistente: _____________________"
+        },
+        etapa4: {
+            macroscopia: "Três pequenos fragmentos teciduais, pardo-amarelados, com áreas centrais friáveis e esbranquiçadas (aspecto caseoso). (B1 - 3F - TI).",
+            microscopia: "Processo inflamatório crônico granulomatoso. Múltiplos granulomas com extensa necrose caseosa central, circundados por macrófagos epitelioides e células gigantes multinucleadas (tipo Langhans). Periferia com infiltrado linfoplasmocitário.",
+            pergunta: "4. Com base na descrição microscópica (granuloma, caseosidade e células de Langhans), aponte o diagnóstico definitivo.",
+            gabarito_titulo: "Tuberculose Pulmonar (Inflamação Granulomatosa com Necrose Caseosa)."
+        }
+    },
+    {
+        id: "pneumonia_01",
+        nome_patologia: "Pneumonia Bacteriana",
+        tipo_exame: "funcional", // Isso fará o sistema pular a biópsia e focar na análise de secreção
+        etapa1: {
+            paciente: "JVO, do sexo masculino, 79 anos, branco, aposentado, residente em ILPI.",
+            historia: "Trazido à emergência por rebaixamento do nível de consciência. Febre alta há 48 horas, tosse produtiva espessa e dor torácica pleurítica.",
+            antecedentes: "Hipertensão e diabetes tipo 2. Residente em asilo.",
+            exame_fisico: "PA = 90x60 mmHg, febril (39,1ºC), taquicárdico, taquipneico. Ausculta com estertores crepitantes grossos em base pulmonar direita.",
+            pergunta: "1. Analise o texto e indique como a idade do paciente e o local de residência funcionam como fatores de risco.",
+            gabarito_titulo: "Pneumonia Adquirida na Comunidade/Institucional.",
+            gabarito_justificativa: "A idade avançada (imunossenescência) e o ambiente de ILPI (aglomeração e maior taxa de colonização por patógenos) são fatores de risco determinantes para pneumonias graves em idosos."
+        },
+        etapa2: {
+            contexto: "Exames mostram leucocitose, hipoxemia e radiografia com infiltrado alveolar e broncogramas aéreos.",
+            pergunta: "2. Correlacione a clínica com os achados laboratoriais e indique as categorias etiológicas a investigar.",
+            gabarito_titulo: "Síndrome de Consolidação Pulmonar.",
+            gabarito_justificativa: "A clínica de febre/tosse e a imagem de consolidação alveolar refletem o preenchimento dos alvéolos por exsudato inflamatório (pus). Deve-se investigar bactérias (Streptococcus pneumoniae, agentes atípicos), vírus e, em casos refratários, fungos."
+        },
+        etapa3: {
+            laudo_exame: "Devido à evolução para insuficiência respiratória grave, foi coletado Lavado Broncoalveolar (LBA) para cultura e bacterioscopia. Não foi realizada biópsia de parênquima devido ao risco desnecessário.",
+            pergunta_alternativa: "3. Justifique por que a biópsia histopatológica não é o exame padrão para o diagnóstico de pneumonia.",
+            gabarito_titulo: "Diagnóstico Clínico-Imagem-Microbiológico.",
+            gabarito_justificativa: "A pneumonia é um processo infeccioso agudo diagnosticado pelo conjunto clínico-radiológico e confirmado por microbiologia (cultura/lâmina de secreção). A biópsia é invasiva, arriscada e não altera o manejo inicial."
+        },
+        etapa4: {
+            pergunta: "4. Com base no quadro de infiltrado alveolar e broncogramas aéreos, aponte o diagnóstico funcional.",
+            gabarito_titulo: "Pneumonia Bacteriana (Consolidação Alveolar).",
+            gabarito_justificativa: "O diagnóstico é de pneumonia bacteriana caracterizada por preenchimento alveolar (broncogramas aéreos) e dano alveolar difuso, explicando a severa hipoxemia pela alteração da relação ventilação-perfusão."
+        }
+    },
+    {
+        id: "tumor_neuroendocrino_01",
+        nome_patologia: "Tumor Neuroendócrino (Carcinoide)",
+        tipo_exame: "patologia",
+        etapa1: {
+            paciente: "PRT, do sexo masculino, 29 anos, branco, analista de sistemas.",
+            historia: "Tosse persistente e febre há um ano, com quadros recorrentes de pneumonia no pulmão direito. Atualmente, apresenta nova febre e hemoptise.",
+            antecedentes: "Nega comorbidades e histórico de tabagismo.",
+            exame_fisico: "Ausculta pulmonar com murmúrio vesicular globalmente reduzido à direita, estertores crepitantes e macicez à percussão no lobo inferior direito.",
+            pergunta: "1. Por que pneumonias de repetição no mesmo lobo pulmonar em um adulto jovem e não tabagista sugerem lesão obstrutiva?",
+            gabarito_titulo: "Suspeita de lesão obstrutiva (Tumor).",
+            gabarito_justificativa: "Infecções recorrentes no mesmo sítio anatômico sugerem uma obstrução mecânica local (nódulo endobrônquico) que impede a drenagem das secreções, favorecendo a colonização bacteriana persistente, independentemente do tabagismo."
+        },
+        etapa2: {
+            contexto: "TC mostra nódulo endobrônquico central no brônquio lobar inferior direito, com realce intenso ao contraste.",
+            pergunta: "2. Considerando a faixa etária, ausência de tabagismo e achados da TC (lesão central hipercaptante), qual a principal hipótese?",
+            gabarito_titulo: "Tumor Neuroendócrino (Carcinoide).",
+            gabarito_justificativa: "Tumores neuroendócrinos (carcinoides) são neoplasias típicas de localização central, bem delimitadas e altamente vascularizadas, sendo uma das principais causas de obstrução brônquica em pacientes jovens não tabagistas."
+        },
+        etapa3: {
+            laudo_exame: "Nódulo de localização endobrônquica no brônquio lobar inferior direito, medindo 2,5 cm, bem delimitado e com realce intenso ao contraste. Massa causa obstrução brônquica parcial com atelectasia.",
+            gabarito_solicitacao: "PEDIDO DE EXAME ANATOMOPATOLÓGICO\n\nIdentificação do Paciente: Nome: P. R. T. | Sexo: Masculino | Idade: 29 anos\nProcedência: Cirurgia Torácica / Broncoscopia\n\nNatureza do Material:\nQuatro (4) fragmentos teciduais obtidos por biópsia via broncoscopia de lesão endobrônquica (brônquio lobar inferior direito).\n\nHistória Clínica:\nPaciente jovem, não tabagista, com episódios de pneumonias de repetição no lobo inferior direito há 10 meses. Apresenta hemoptise recente. TC revela nódulo central endobrônquico hipercaptante de contraste.\n\nHipótese Diagnóstica:\nTumor endobrônquico (suspeita de Tumor Neuroendócrino/Carcinoide).\n\nSolicitação:\nSolicito avaliação histopatológica para diagnóstico definitivo e diferenciação neoplásica. Devido à localização e aparência radiológica, favor considerar estudo imuno-histoquímico para marcadores neuroendócrinos se necessário.\n\nData: ___/___/____ | Carimbo e Assinatura do Médico Assistente: _____________________"
+        },
+        etapa4: {
+            macroscopia: "Recebidos quatro fragmentos de tecido de coloração pardo-amarelada e consistência elástica. (B1 - 4F - TI).",
+            microscopia: "Neoplasia com células uniformes, núcleos redondos com cromatina em 'sal e pimenta'. Organização em ninhos, trabéculas e raras rosetas em estroma ricamente vascularizado. Baixa contagem de mitoses e ausência de necrose.",
+            pergunta: "4. Aponte o diagnóstico definitivo e cite os achados citológicos patognomônicos.",
+            gabarito_titulo: "Tumor Neuroendócrino (Carcinoide típico).",
+            gabarito_justificativa: "O diagnóstico é de Tumor Neuroendócrino (Carcinoide) típico. Os achados patognomônicos são a cromatina em 'sal e pimenta' e a arquitetura trabecular/ninhos com baixa atividade mitótica."
+        }
     }
     
     
