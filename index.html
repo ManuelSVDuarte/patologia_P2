@@ -14,6 +14,14 @@
             --card-bg: #fff;
             --case-bg: #fdfbf7; /* Cor de fundo estilo 'prancheta' */
         }
+        .overlay {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: linear-gradient(135deg, #2c3e50, #1a252f);
+    color: white; display: flex; justify-content: center; align-items: center;
+    z-index: 1000; transition: opacity 0.8s ease;
+}
+.welcome-box { text-align: center; max-width: 600px; padding: 20px; }
+#mensagem_dinamica { font-style: italic; color: #bdc3c7; font-size: 1.2em; margin-top: 10px; }
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -71,7 +79,7 @@
         h1, h2, h3 { color: var(--primary-color); margin-top: 0; }
         
         .step { display: none; animation: fadeIn 0.4s ease-in-out; }
-        .step.active { display: block; }
+        .step.active {}
         
         .case-text {
             background-color: #f9f9f9;
@@ -127,7 +135,20 @@
     </style>
 </head>
 <body>
+<!-- TELA DE ABERTURA -->
+<div id="tela_abertura" class="overlay">
+    <div class="welcome-box">
+        <h1>🔬 PathoQuest</h1>
+        <p>Bem-vindo ao laboratório virtual de patologia.</p>
+        <div id="mensagem_dinamica"></div>
+        <button class="btn-verificar" style="margin-top:20px;" onclick="iniciarSimulador()">Entrar no Laboratório</button>
+    </div>
+</div>
 
+<!-- O RESTO DO SEU CÓDIGO (container) -->
+<div id="app_content" style="display:none;">
+    <!-- (Todo seu código original do container aqui dentro) -->
+</div>
 <div class="header-controls">
     <h2 style="margin: 0;">Simulador de Casos Clínicos</h2>
     <select id="seletorCaso" onchange="carregarCaso(this.value)">
