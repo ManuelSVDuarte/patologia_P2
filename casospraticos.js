@@ -112,9 +112,9 @@ function conferirResposta() {
     const btnConferir = document.getElementById("btn-conferir");
     const btnProxima = document.getElementById("btn-proxima");
 
-    if (digitadoOriginal.trim() === "") {
+    /*if (digitadoOriginal.trim() === "") {
         alert("Por favor, digite um diagnóstico antes de conferir.");
-        return;
+        return;*/
     }
 
     const casoAtual = casosSimulado[indiceAtual];
