@@ -28,19 +28,12 @@
         <p>Pontuação: <span id="pontuacao">0</span></p>
     </div>
 
-    <script type="module">
-        import { bancoDeDadosPatologias } from './patologias.js';
-        
+   <script>
         const db = bancoDeDadosPatologias;
         let pontos = 0;
         let perguntaAtual = {};
 
-        // Vinculação de eventos via JavaScript (evita erro de escopo de módulo)
-        document.getElementById('btn-listar').addEventListener('click', mostrarLista);
-        document.getElementById('btn-iniciar').addEventListener('click', iniciarSimulado);
-        document.getElementById('btn-responder').addEventListener('click', verificarResposta);
-
-        function mostrarLista() {
+        document.getElementById('btn-listar').addEventListener('click', () => {
             const container = document.getElementById('lista-container');
             container.classList.toggle('hidden');
             if(container.innerHTML === "") {
@@ -48,13 +41,13 @@
                 db.forEach(p => html += `<tr><td>${p.patologia}</td><td>${p.achadosHistologicos}</td><td>${p.localizacao}</td></tr>`);
                 container.innerHTML = html + '</table>';
             }
-        }
+        });
 
-        function iniciarSimulado() {
+        document.getElementById('btn-iniciar').addEventListener('click', () => {
             document.getElementById('tela-inicial').classList.add('hidden');
             document.getElementById('tela-simulado').classList.remove('hidden');
             gerarPergunta();
-        }
+        });
 
         function gerarPergunta() {
             const randomPat = db[Math.floor(Math.random() * db.length)];
@@ -69,7 +62,7 @@
             document.getElementById('resposta-input').value = "";
         }
 
-        function verificarResposta() {
+        document.getElementById('btn-responder').addEventListener('click', () => {
             const usuario = document.getElementById('resposta-input').value.toLowerCase().trim();
             const correta = perguntaAtual.respostaCorreta.toLowerCase().trim();
             
@@ -81,7 +74,7 @@
             }
             document.getElementById('pontuacao').innerText = pontos;
             gerarPergunta();
-        }
+        });
     </script>
 </body>
 </html>
