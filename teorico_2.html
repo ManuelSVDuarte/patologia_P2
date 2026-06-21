@@ -2,22 +2,21 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>Simulado de Patologia</title>
+    <title>Simulado de Patologia 2</title>
     <style>
         body { font-family: sans-serif; max-width: 800px; margin: auto; padding: 20px; }
         .hidden { display: none; }
-        .card { border: 1px solid #ccc; padding: 20px; margin-top: 10px; border-radius: 8px; }
         table { width: 100%; border-collapse: collapse; margin-top: 20px; }
         th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
     </style>
 </head>
 <body>
 
-    <h1>Simulado de Patologia</h1>
+    <h1>Simulado de Patologia 2</h1>
     
     <div id="tela-inicial">
-        <button onclick="iniciarSimulado()">Iniciar Simulado</button>
-        <button onclick="mostrarLista()">Ver todas as Patologias</button>
+        <button id="btn-iniciar">Iniciar Simulado</button>
+        <button id="btn-listar">Ver todas as Patologias</button>
         <div id="lista-container" class="hidden"></div>
     </div>
 
@@ -25,18 +24,23 @@
         <h2 id="patologia-nome"></h2>
         <div id="pergunta-container"></div>
         <input type="text" id="resposta-input" placeholder="Digite sua resposta...">
-        <button onclick="verificarResposta()">Responder</button>
+        <button id="btn-responder">Responder</button>
         <p>Pontuação: <span id="pontuacao">0</span></p>
     </div>
 
     <script type="module">
         import { bancoDeDadosPatologias } from './patologias.js';
         
-        window.db = bancoDeDadosPatologias;
-        window.pontos = 0;
-        window.perguntaAtual = {};
+        const db = bancoDeDadosPatologias;
+        let pontos = 0;
+        let perguntaAtual = {};
 
-        window.mostrarLista = () => {
+        // Vinculação de eventos via JavaScript (evita erro de escopo de módulo)
+        document.getElementById('btn-listar').addEventListener('click', mostrarLista);
+        document.getElementById('btn-iniciar').addEventListener('click', iniciarSimulado);
+        document.getElementById('btn-responder').addEventListener('click', verificarResposta);
+
+        function mostrarLista() {
             const container = document.getElementById('lista-container');
             container.classList.toggle('hidden');
             if(container.innerHTML === "") {
@@ -44,40 +48,40 @@
                 db.forEach(p => html += `<tr><td>${p.patologia}</td><td>${p.achadosHistologicos}</td><td>${p.localizacao}</td></tr>`);
                 container.innerHTML = html + '</table>';
             }
-        };
+        }
 
-        window.iniciarSimulado = () => {
+        function iniciarSimulado() {
             document.getElementById('tela-inicial').classList.add('hidden');
             document.getElementById('tela-simulado').classList.remove('hidden');
             gerarPergunta();
-        };
+        }
 
-        window.gerarPergunta = () => {
+        function gerarPergunta() {
             const randomPat = db[Math.floor(Math.random() * db.length)];
             const tipo = Math.random() > 0.5 ? 'histologico' : 'localizacao';
-            window.perguntaAtual = {
+            perguntaAtual = {
                 patologia: randomPat.patologia,
                 pergunta: tipo === 'histologico' ? "Achados Histológicos" : "Localização Típica",
                 respostaCorreta: tipo === 'histologico' ? randomPat.achadosHistologicos : randomPat.localizacao
             };
-            document.getElementById('patologia-nome').innerText = window.perguntaAtual.patologia;
-            document.getElementById('pergunta-container').innerText = "Pergunta: " + window.perguntaAtual.pergunta;
+            document.getElementById('patologia-nome').innerText = perguntaAtual.patologia;
+            document.getElementById('pergunta-container').innerText = "Pergunta: " + perguntaAtual.pergunta;
             document.getElementById('resposta-input').value = "";
-        };
+        }
 
-        window.verificarResposta = () => {
+        function verificarResposta() {
             const usuario = document.getElementById('resposta-input').value.toLowerCase().trim();
-            const correta = window.perguntaAtual.respostaCorreta.toLowerCase().trim();
+            const correta = perguntaAtual.respostaCorreta.toLowerCase().trim();
             
             if (usuario === correta) {
                 alert("Correto!");
-                window.pontos += 10;
+                pontos += 10;
             } else {
-                alert("Incorreto. A resposta era: " + window.perguntaAtual.respostaCorreta);
+                alert("Incorreto. A resposta era: " + perguntaAtual.respostaCorreta);
             }
-            document.getElementById('pontuacao').innerText = window.pontos;
+            document.getElementById('pontuacao').innerText = pontos;
             gerarPergunta();
-        };
+        }
     </script>
 </body>
 </html>
