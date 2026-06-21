@@ -2,36 +2,42 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>Simulado de Patologia 2</title>
+    <title>Simulado de Patologia</title>
     <style>
-        body { font-family: sans-serif; max-width: 800px; margin: auto; padding: 20px; }
+        body { font-family: 'Segoe UI', sans-serif; max-width: 800px; margin: auto; padding: 20px; background-color: #f9f9f9; }
         .hidden { display: none; }
-        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        .card { background: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); margin-top: 20px; }
+        input { width: 100%; padding: 10px; margin: 10px 0; border: 1px solid #ccc; border-radius: 5px; }
+        button { padding: 10px 20px; cursor: pointer; border: none; border-radius: 5px; background: #0056b3; color: white; }
+        #feedback { margin-top: 15px; padding: 15px; border-radius: 5px; font-weight: bold; }
+        .correto { background: #d4edda; color: #155724; }
+        .errado { background: #f8d7da; color: #721c24; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; background: white; }
+        th, td { border: 1px solid #ddd; padding: 12px; text-align: left; }
     </style>
 </head>
 <body>
 
-    <h1>Simulado de Patologia 2</h1>
+    <h1>Simulado de Patologia</h1>
     
-    <div id="tela-inicial">
+    <div id="tela-inicial" class="card">
         <button id="btn-iniciar">Iniciar Simulado</button>
         <button id="btn-listar">Ver todas as Patologias</button>
         <div id="lista-container" class="hidden"></div>
     </div>
 
-    <div id="tela-simulado" class="hidden">
+    <div id="tela-simulado" class="hidden card">
         <h2 id="patologia-nome"></h2>
-        <div id="pergunta-container"></div>
+        <p id="pergunta-container" style="font-size: 1.2rem; margin: 15px 0;"></p>
         <input type="text" id="resposta-input" placeholder="Digite sua resposta...">
         <button id="btn-responder">Responder</button>
-        <p>Pontuação: <span id="pontuacao">0</span></p>
+        <div id="feedback" class="hidden"></div>
+        <p style="margin-top: 20px;">Pontuação: <span id="pontuacao" style="font-weight: bold;">0</span></p>
     </div>
 
-  <script src="patologias.js"></script>
+    <script src="patologias.js"></script>
     <script>
         const db = bancoDeDadosPatologias;
-        console.log("Tamanho do banco:", db.length); // Deve imprimir 34 no console
         let pontos = 0;
         let perguntaAtual = {};
 
@@ -52,30 +58,41 @@
         });
 
         function gerarPergunta() {
+            const feedback = document.getElementById('feedback');
+            feedback.classList.add('hidden'); // Esconde feedback anterior
+            
             const randomPat = db[Math.floor(Math.random() * db.length)];
             const tipo = Math.random() > 0.5 ? 'histologico' : 'localizacao';
             perguntaAtual = {
                 patologia: randomPat.patologia,
-                pergunta: tipo === 'histologico' ? "Achados Histológicos" : "Localização Típica",
+                pergunta: tipo === 'histologico' ? "Quais os achados histológicos?" : "Qual a localização típica?",
                 respostaCorreta: tipo === 'histologico' ? randomPat.achadosHistologicos : randomPat.localizacao
             };
-            document.getElementById('patologia-nome').innerText = perguntaAtual.patologia;
-            document.getElementById('pergunta-container').innerText = "Pergunta: " + perguntaAtual.pergunta;
+            document.getElementById('patologia-nome').innerText = randomPat.patologia;
+            document.getElementById('pergunta-container').innerText = perguntaAtual.pergunta;
             document.getElementById('resposta-input').value = "";
         }
 
         document.getElementById('btn-responder').addEventListener('click', () => {
             const usuario = document.getElementById('resposta-input').value.toLowerCase().trim();
             const correta = perguntaAtual.respostaCorreta.toLowerCase().trim();
+            const feedback = document.getElementById('feedback');
+            
+            feedback.classList.remove('hidden', 'correto', 'errado');
             
             if (usuario === correta) {
-                alert("Correto!");
+                feedback.innerText = "✓ Correto! Muito bem.";
+                feedback.classList.add('correto');
                 pontos += 10;
             } else {
-                alert("Incorreto. A resposta era: " + perguntaAtual.respostaCorreta);
+                feedback.innerText = "✗ Incorreto. A resposta correta era: " + perguntaAtual.respostaCorreta;
+                feedback.classList.add('errado');
             }
+            
             document.getElementById('pontuacao').innerText = pontos;
-            gerarPergunta();
+            
+            // Opcional: espera 2 segundos antes de gerar a próxima pergunta
+            setTimeout(gerarPergunta, 3000); 
         });
     </script>
 </body>
