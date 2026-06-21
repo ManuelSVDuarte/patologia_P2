@@ -28,8 +28,10 @@
         <p>Pontuação: <span id="pontuacao">0</span></p>
     </div>
 
-   <script>
+  <script src="patologias.js"></script>
+    <script>
         const db = bancoDeDadosPatologias;
+        console.log("Tamanho do banco:", db.length); // Deve imprimir 34 no console
         let pontos = 0;
         let perguntaAtual = {};
 
