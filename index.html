@@ -44,9 +44,9 @@
 
         .botoes-container {
             display: flex;
-            gap: 20px;
+            flex-direction: column; /* Alterado para empilhar os botões */
+            gap: 15px; /* Espaçamento entre os botões */
             justify-content: center;
-            flex-wrap: wrap;
         }
 
         .btn {
@@ -58,11 +58,9 @@
             font-size: 1.1rem;
             font-weight: 600;
             transition: all 0.3s ease;
-            flex: 1;
-            min-width: 150px;
         }
 
-        /* Estilo para o botão Teórico */
+        /* Estilo para o botão Teórico 1 */
         .btn-teorico {
             background-color: #0056b3;
             border: 2px solid #0056b3;
@@ -71,6 +69,17 @@
         .btn-teorico:hover {
             background-color: #ffffff;
             color: #0056b3;
+        }
+
+        /* Estilo para o botão Teórico 2 */
+        .btn-teorico-2 {
+            background-color: #6f42c1; /* Cor roxa para diferenciar */
+            border: 2px solid #6f42c1;
+        }
+
+        .btn-teorico-2:hover {
+            background-color: #ffffff;
+            color: #6f42c1;
         }
 
         /* Estilo para o botão Prático */
@@ -92,7 +101,8 @@
         <p>Selecione a modalidade que deseja treinar agora:</p>
         
         <div class="botoes-container">
-            <a href="teorico.html" class="btn btn-teorico">Simulado Teórico</a>
+            <a href="teorico.html" class="btn btn-teorico">Simulado Teórico 1</a>
+            <a href="teorico_2.html" class="btn btn-teorico-2">Simulado Teórico 2</a>
             <a href="pratico.html" class="btn btn-pratico">Simulado Prático</a>
         </div>
     </div>
